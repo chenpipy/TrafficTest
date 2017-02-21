@@ -1,0 +1,30 @@
+{
+"type": "FeatureCollection",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "gid": 1, "junction_code": null, "junction_name": null, "longitude": 109.963843336, "latitude": 27.5521776520001 }, "geometry": { "type": "Point", "coordinates": [ 109.96384333600008, 27.552177652000069 ] } },
+{ "type": "Feature", "properties": { "gid": 2, "junction_code": null, "junction_name": null, "longitude": 109.912703505, "latitude": 27.5510215400001 }, "geometry": { "type": "Point", "coordinates": [ 109.91270350500008, 27.551021540000079 ] } },
+{ "type": "Feature", "properties": { "gid": 3, "junction_code": null, "junction_name": null, "longitude": 109.948436986, "latitude": 27.5477134970001 }, "geometry": { "type": "Point", "coordinates": [ 109.94843698600005, 27.547713497000075 ] } },
+{ "type": "Feature", "properties": { "gid": 4, "junction_code": null, "junction_name": null, "longitude": 109.966296312, "latitude": 27.554252412 }, "geometry": { "type": "Point", "coordinates": [ 109.96629631200005, 27.554252412000039 ] } },
+{ "type": "Feature", "properties": { "gid": 5, "junction_code": null, "junction_name": null, "longitude": 109.964671563, "latitude": 27.524144169000099 }, "geometry": { "type": "Point", "coordinates": [ 109.96467156300008, 27.524144169000067 ] } },
+{ "type": "Feature", "properties": { "gid": 6, "junction_code": null, "junction_name": null, "longitude": 110.01631246399999, "latitude": 27.536532371000099 }, "geometry": { "type": "Point", "coordinates": [ 110.01631246400007, 27.536532371000078 ] } },
+{ "type": "Feature", "properties": { "gid": 7, "junction_code": null, "junction_name": null, "longitude": 110.00326772, "latitude": 27.553012506000101 }, "geometry": { "type": "Point", "coordinates": [ 110.00326772000005, 27.553012506000073 ] } },
+{ "type": "Feature", "properties": { "gid": 8, "junction_code": null, "junction_name": null, "longitude": 109.963577798, "latitude": 27.543001331 }, "geometry": { "type": "Point", "coordinates": [ 109.96357779800007, 27.543001331000028 ] } },
+{ "type": "Feature", "properties": { "gid": 9, "junction_code": null, "junction_name": null, "longitude": 109.953691451, "latitude": 27.536480668 }, "geometry": { "type": "Point", "coordinates": [ 109.95369145100005, 27.536480668000024 ] } },
+{ "type": "Feature", "properties": { "gid": 10, "junction_code": null, "junction_name": null, "longitude": 109.9412706, "latitude": 27.536376074 }, "geometry": { "type": "Point", "coordinates": [ 109.94127060000005, 27.536376074000032 ] } },
+{ "type": "Feature", "properties": { "gid": 11, "junction_code": null, "junction_name": null, "longitude": 109.982967899, "latitude": 27.538894981000102 }, "geometry": { "type": "Point", "coordinates": [ 109.98296789900007, 27.538894981000055 ] } },
+{ "type": "Feature", "properties": { "gid": 12, "junction_code": null, "junction_name": null, "longitude": 109.997164566, "latitude": 27.538570986 }, "geometry": { "type": "Point", "coordinates": [ 109.99716456600004, 27.538570986000025 ] } },
+{ "type": "Feature", "properties": { "gid": 13, "junction_code": null, "junction_name": null, "longitude": 109.970983551, "latitude": 27.541964899 }, "geometry": { "type": "Point", "coordinates": [ 109.97098355100007, 27.54196489900005 ] } },
+{ "type": "Feature", "properties": { "gid": 14, "junction_code": null, "junction_name": null, "longitude": 109.953042356, "latitude": 27.551812941000001 }, "geometry": { "type": "Point", "coordinates": [ 109.95304235600008, 27.551812941000037 ] } },
+{ "type": "Feature", "properties": { "gid": 15, "junction_code": null, "junction_name": null, "longitude": 109.983140522, "latitude": 27.553877249 }, "geometry": { "type": "Point", "coordinates": [ 109.98314052200004, 27.553877249000038 ] } },
+{ "type": "Feature", "properties": { "gid": 16, "junction_code": null, "junction_name": null, "longitude": 109.976844173, "latitude": 27.554983398000001 }, "geometry": { "type": "Point", "coordinates": [ 109.97684417300007, 27.554983398000047 ] } },
+{ "type": "Feature", "properties": { "gid": 17, "junction_code": null, "junction_name": null, "longitude": 109.99110746700001, "latitude": 27.5562148560001 }, "geometry": { "type": "Point", "coordinates": [ 109.99110746700006, 27.556214856000054 ] } },
+{ "type": "Feature", "properties": { "gid": 18, "junction_code": null, "junction_name": null, "longitude": 110.00220564, "latitude": 27.5612557040001 }, "geometry": { "type": "Point", "coordinates": [ 110.00220564000006, 27.561255704000075 ] } },
+{ "type": "Feature", "properties": { "gid": 19, "junction_code": null, "junction_name": null, "longitude": 109.98322135700001, "latitude": 27.545925427 }, "geometry": { "type": "Point", "coordinates": [ 109.98322135700005, 27.545925427000043 ] } },
+{ "type": "Feature", "properties": { "gid": 20, "junction_code": null, "junction_name": null, "longitude": 109.97284801000001, "latitude": 27.546931489 }, "geometry": { "type": "Point", "coordinates": [ 109.97284801000006, 27.546931489000031 ] } },
+{ "type": "Feature", "properties": { "gid": 21, "junction_code": null, "junction_name": null, "longitude": 109.97826698900001, "latitude": 27.546412827000001 }, "geometry": { "type": "Point", "coordinates": [ 109.97826698900008, 27.54641282700004 ] } },
+{ "type": "Feature", "properties": { "gid": 22, "junction_code": null, "junction_name": null, "longitude": 110.002292172, "latitude": 27.539967623000098 }, "geometry": { "type": "Point", "coordinates": [ 110.00229217200007, 27.539967623000052 ] } },
+{ "type": "Feature", "properties": { "gid": 23, "junction_code": null, "junction_name": null, "longitude": 109.96777456, "latitude": 27.557250515000099 }, "geometry": { "type": "Point", "coordinates": [ 109.96777456000007, 27.557250515000078 ] } },
+{ "type": "Feature", "properties": { "gid": 24, "junction_code": null, "junction_name": null, "longitude": 109.96470533199999, "latitude": 27.527126867 }, "geometry": { "type": "Point", "coordinates": [ 109.96470533200005, 27.52712686700005 ] } }
+]
+}

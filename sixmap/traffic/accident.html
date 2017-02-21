@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link type="text/css" rel="stylesheet" href="../libs/workshop-resources/ol3/ol.css">
+    <link type="text/css" rel="stylesheet" href="../libs/bootstrap/css/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="../libs/olMap/olMap.css">
+
+    <script type="text/javascript" src="../libs/workshop-resources/ol3/ol.js"></script>
+    <script type="text/javascript" src="../libs/olMap/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="../libs/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../libs/olMap/olMap.js"></script>
+</head>
+<body>
+<div id="map"></div>
+</body>
+    <script>
+        var olMap;
+        var urlData;
+        var colors = new Array();
+        var codesArray=new Array();
+        var pArray=new Array();//测试数据，通过一次判断就可以确定所在的面，共680个点
+        var mArray=new Array();//测试数据，共209个点需要二次判断
+        function loadMap(){
+        olMap=new OLMap(document.getElementById('map'));
+            inicolor(colors);
+            olMap.initialize();
+            urlData='../libs/olMap/data/';
+            urlImgs=urlImgs='../libs/olMap/imgs/';
+
+            olMap.addVectorLayer(urlData+'gis_area_tow.geojson','gis_area_town',olMap.stylePolygonCommon(colors[5],colors[0],2));
+            olMap.addVectorLayer(urlData+'it_accident.geojson','it_accident',olMap.stylePoint());
+            //olMap.addHeatmap(urlData+'gis_accident.geojson', 'Heat Map');
+            ajaxAccident();
+            olMap.map.on('click',function (evt) {
+                olMap.showFeatureInfo(null,null);
+                /*
+                var featureAtPixel=olMap.getFeaturesAtPixel(evt.pixel);
+                if(featureAtPixel){
+                    var iTitle=featureAtPixel.layer.get('title');
+                    switch(iTitle){
+                        case 'xzq':
+                            var xzq=featureAtPixel.feature;
+                            var features=olMap.getVectorLayerFeaturesByTitle('gis_accident');
+                            pointInfeature=[];
+                                var length=pointInfeature.length;
+                                alert(length);
+                            break;
+                    }
+                }
+                 */
+            });
+        };
+
+        //初始化颜色数组
+        function inicolor(colors){
+            colors.push('#029d03');
+            colors.push('#94d351');
+            colors.push('#fffe04');
+            colors.push('#f6b900');
+            colors.push('#E87C25');
+            colors.push('rgba(255,255,255,0)');
+        };
+        //遍历事故点数据
+        function ajaxAccident() {
+            $.ajax({
+                url: urlData + 'it_accident.geojson',
+                type: 'get',
+                dataType: 'json',
+                success: function (data) {
+                    $.each(data.features,function(index,info) {
+                        //判断每一个事故点与面的包含关系，并返回面行政区代码
+                  ajaxInGrid([info.properties.longitude,info.properties.latitude]);
+                        })
+                }
+            });
+        }
+        //遍历格网数据，判断点是否在格网内
+        function ajaxInGrid(point) {
+            $.ajax({
+                url: urlData + 'gis_fishnet.json',
+                type: 'get',
+                dataType: 'json',
+                success: function (data) {
+                    if (data.features){
+                        for(var i=0;i<data.features.length;i++){
+                            if (isInCell(point,data.features[i].attributes)){
+                                var codes=data.features[i].attributes.codes.split(",");
+                                if(codes.length==1){
+                                    //测试，输出到控制台
+                                    console.log(data.features[i].attributes.codes);
+                                    pArray.push(data.features[i].attributes.codes);
+                                    console.log("事故点：第一次过滤"+pArray.length);
+                                    return data.features[i].attributes.codes.toString();
+                                }
+                                else if (codes.length!==1){
+                                    //找到网格对应的多边形，判断点面关系
+                                    $.ajax({
+                                        url:urlData+'gis_area_tow.geojson',
+                                        type:'get',
+                                        dataType:'json',
+                                        success:function (data) {
+                                            //循环遍历网格中的行政区数组
+                                            for (var i = 0; i < codes.length; i++) {
+                                                //遍历行政区数据，找到对应的行政区代码，判断点面关系
+                                                for (var j = 0; j < data.features.length; j++) {
+                                                    var town_code=data.features[j].properties.town_code;
+                                                    var coordinates=data.features[j].geometry.coordinates[0][0];
+                                                    if(codes[i]==town_code){
+                                                        if(isInfeature(point,coordinates)){
+                                                            //测试（输出到控制台）
+                                                            mArray.push(town_code);
+                                                            console.log(town_code);
+                                                            console.log("事故点：二次判断"+mArray.length);
+                                                            return town_code;
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                            return "";
+                                        }
+                                    });
+                                }
+                            }
+                        }
+                    }
+                    return "";
+                }
+            });
+        }
+
+        //判断点是否在不规则多边形内
+        //point:点坐标数组，point[0] 横坐标
+        //vs:多边形折点组成的数组
+        function isInfeature(point, vs) {
+            // ray-casting algorithm based on
+            // http://www.ecse.rpi.edu/Homepages/wrf/Research/Short_Notes/pnpoly.html
+            var x = point[0], y = point[1];
+            var inside = false;
+            for (var i = 0, j = vs.length - 1; i < vs.length; j = i++) {
+                var xi = vs[i][0], yi = vs[i][1];
+                var xj = vs[j][0], yj = vs[j][1];
+                var intersect = ((yi > y) != (yj > y))
+                        && (x < (xj - xi) * (y - yi) / (yj - yi) + xi);
+                if (intersect) inside = !inside;
+            }
+
+            return inside;
+        };
+        //判断点是否在规则多边形内
+        //point:点坐标数组，point[0] 横坐标
+        //gridJson:规则网格json对象，包含上下左右四个坐标范围
+        function isInCell(point,gridJson) {
+            var minx=gridJson.minX;
+            var miny=gridJson.minY;
+            var maxx=gridJson.maxX;
+            var maxy=gridJson.maxY;
+            var longitude=point[0];
+            var latitude=point[1];
+            if((longitude>minx&&longitude<maxx)&&(latitude>miny&&latitude<maxy)){
+                return true
+            }
+            else {
+                return false;
+            };
+        };
+                loadMap();
+    </script>
+</html>

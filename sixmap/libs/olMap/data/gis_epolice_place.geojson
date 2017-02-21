@@ -1,0 +1,17 @@
+{
+"type":"FeatureCollection",
+"crs":{"type":"name","properties":{"name":"urn:ogc:def:crs:OGC:1.3:CRS84"}},
+"features":[
+{"type":"Feature","properties":{"gid":1,"code":"DJ0005","place":"南环路与锦溪南路交叉路口","longitude":109.99733220500001,"latitude":27.524307557,"description":null,"junction_code":null,"area_code":"431202"},"geometry":{"type":"Point","coordinates":[109.99733220500008,27.524307557000043]}},
+{"type":"Feature","properties":{"gid":2,"code":"DJ0003","place":"湖天南路与刘塘路交叉路口","longitude":109.983006006,"latitude":27.5325409880001,"description":null,"junction_code":null,"area_code":"431202"},"geometry":{"type":"Point","coordinates":[109.98300600600004,27.532540988000051]}},
+{"type":"Feature","properties":{"gid":3,"code":"DJ0010","place":"西环路与怀西路交叉路口","longitude":109.921916497,"latitude":27.547042316,"description":null,"junction_code":null,"area_code":"431202"},"geometry":{"type":"Point","coordinates":[109.92191649700004,27.547042316000045]}},
+{"type":"Feature","properties":{"gid":4,"code":"DJ0004","place":"湖天南路与南环路交叉路口","longitude":109.98304489,"latitude":27.523008569000101,"description":null,"junction_code":null,"area_code":"431202"},"geometry":{"type":"Point","coordinates":[109.98304489000009,27.523008569000069]}},
+{"type":"Feature","properties":{"gid":5,"code":"DJ0002","place":"湖天南路与高堰路丁字路口","longitude":109.983057085,"latitude":27.517882590000099,"description":null,"junction_code":null,"area_code":"431202"},"geometry":{"type":"Point","coordinates":[109.98305708500004,27.517882590000056]}},
+{"type":"Feature","properties":{"gid":6,"code":"DJ0007","place":"人民路与鹤州路交叉路口","longitude":109.963837207,"latitude":27.552178781000102,"description":null,"junction_code":null,"area_code":"431202"},"geometry":{"type":"Point","coordinates":[109.96383720700004,27.552178781000066]}},
+{"type":"Feature","properties":{"gid":7,"code":"DJ0009","place":"天星中路与红星路交叉路口","longitude":109.970982251,"latitude":27.541957568000001,"description":null,"junction_code":null,"area_code":"431202"},"geometry":{"type":"Point","coordinates":[109.97098225100007,27.541957568000043]}},
+{"type":"Feature","properties":{"gid":8,"code":"DJ0011","place":"正清路与红星路交叉路口","longitude":109.972867142,"latitude":27.546926081,"description":null,"junction_code":null,"area_code":"431202"},"geometry":{"type":"Point","coordinates":[109.97286714200004,27.546926081000038]}},
+{"type":"Feature","properties":{"gid":9,"code":"DJ0006","place":"人民路与府星路交叉路口","longitude":109.961532897,"latitude":27.551066681000101,"description":null,"junction_code":null,"area_code":"431202"},"geometry":{"type":"Point","coordinates":[109.96153289700004,27.551066681000066]}},
+{"type":"Feature","properties":{"gid":10,"code":"DJ0001","place":"湖天南路路段超速卡口","longitude":109.967187091,"latitude":27.506399320000099,"description":null,"junction_code":null,"area_code":"431202"},"geometry":{"type":"Point","coordinates":[109.96718709100008,27.506399320000071]}},
+{"type":"Feature","properties":{"gid":11,"code":"DJ0008","place":"顺天路与花溪路交叉路口","longitude":110.00326614399999,"latitude":27.5530072500001,"description":null,"junction_code":null,"area_code":"431202"},"geometry":{"type":"Point","coordinates":[110.00326614400007,27.553007250000064]}}
+]
+}

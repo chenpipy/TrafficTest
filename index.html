@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no,width=device-width">
+    <meta http-equiv="X-A-Compatible" content="IE=edge,chrome=1">
+    <link rel="shortcut icon" href="libs/olMap/imgs/favicon.ico" type="x-icon">
+
+    <link rel="stylesheet" href="libs/bootstrap/css/bootstrap.min.css">
+    <script type="text/javascript" src="libs/jQuery/jquery.js"></script>
+    <script type="text/javascript" src="libs/bootstrap/js/bootstrap.min.js"></script>
+    <title>怀化市交警大数据分析</title>
+    <div class="epolice-group">
+    <select class="epolice-control" id="eplSrc">
+        <option>请选择路口</option><span class="caret"></span><span class="caret"></span>
+    </select>
+    </div>
+</head>
+<body>
+<div>
+    <h1>Click</h1>
+    <button class="add">Click me to add new item</button>
+    <ul class="li">
+        <li>I am old item.<button class="delete">Delete</button></li>
+        <li>I am old item.<button class="delete">Delete</button></li>
+        <li>I am old item.<button class="delete">Delete</button></li>
+    </ul>
+</div>
+<div class="dropdown" style="margin-top:30px;">
+    <a style="font-size:14px;" class="btn dropdown-toggle" type="button" id="dropdownmenu1" data-toggle="dropdown">
+        text 1
+        <span class="caret"></span>
+    </a>
+    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownmenu1">
+        <li role="presentation" value=><a role="menuitem" tabindex="1" href="#">text 1</a></li>
+        <li role="presentation"><a role="menuitem" tabindex="2" href="#">text 2</a></li>
+        <li role="presentation"><a role="menuitem" tabindex="3" href="#">text 3</a></li>
+    </ul>
+</div>
+<script type="text/javascript">
+    $(".add").click(function(){
+        $(".li").append('<li>I am new item.<button class="delete">Delete</button></li>');
+    });
+    $(".delete").click(function(){
+        $(this).parent().remove();
+    });
+</script>
+    <input type="checkbox" id="checkbox" class="checkbox" ><p>男</p>
+
+<ul class="nav nav-tabs" id="myTab">
+    <li class="active"><a data-toggle="tab" href="#home">首页</a></li>
+    <li class=""><a data-toggle="tab" href="#profile">个人资料</a></li>
+    <li class="dropdown">
+        <!-- 单击"我的书籍"时,弹出下拉菜单 -->
+        <a data-toggle="dropdown" href="#" class="dropdown-toggle">我的书
+            籍
+            <b class="caret"></b></a>
+        <ul class="dropdown-menu">
+            <li><a data-toggle="tab" href="#dropdown1">JavaScript编程精解
+            </a></li>
+            <li><a data-toggle="tab" href="#dropdown2">JavaScript设计模式
+            </a></li>
+            <li><a data-toggle="tab" href="#dropdown3">JavaScript启示录
+            </a></li>
+            <li><a data-toggle="tab" href="#dropdown4">深入理解
+                Bootstrap</a></li>
+        </ul>
+    </li>
+</ul>
+<div class="tab-content" id="myTabContent">
+    <div id="home" class="tab-pane fade active in"><p>单击"首页"时显示该区域
+    </p></div>
+    <div id="profile" class="tab-pane fade"><p>单击"个人资料"时显示该区域</p>
+    </div>
+    <div id="dropdown1" class="tab-pane fade"><p>单击"JavaScript编程精解"
+        时显示该区域</p></div>
+    <div id="dropdown2" class="tab-pane fade"><p>单击"JavaScript设计模式"
+        时显示该区域</p></div>
+    <div id="dropdown3" class="tab-pane fade"><p>单击"JavaScript启示录"时
+        显示该区域</p></div>
+    <div id="dropdown4" class="tab-pane fade"> <p>单击"深入理解Bootstrap3"
+        时显示该区域</p></div>
+</div>
+<abbr title="JavaScript设计模式是一本专门讲解设计模式的专业书籍">JavaScript设计模
+    式</abbr>
+<abbr title="HyperText Markup Language" class="initialism">HTML</abbr><br>
+
+<tr class="active">
+    <td>1</td>
+    <td>JavaScript编程精解</td>
+    <td>机械工业出版社</td>
+    <td>汤姆大叔(译)</td><br>
+</tr>
+<select><option>1</option>
+</select>
+<select multiple="multiple">
+    <option>1</option>
+    <option>2</option>
+</select>
+<textarea cols="12" rows="3"></textarea>
+<div class="radio">
+    <label><input type="radio" name="optionsRadios" value="female" checked>请
+        确保,您喜欢女人？</label>
+</div>
+<div class="radio">
+    <label><input type="radio" name="optionsRadios" value="male">请确保,您喜欢
+        男人？</label>
+</div>
+<fieldset disabled>
+    <legend><input></legend>
+    <input type="text" placeholder="Disabled input">
+    <select>
+        <option>不可选择</option>
+    </select><div class="checkbox">
+    <label><input type="checkbox">记住密码</label>
+</div>
+    <button type="submit" class="btn btn-primary">提交</button>
+</fieldset>
+<div class="form-group has-warning">
+    <label class="control-label" for="inputWarning">输入长度不够！</label>
+    <input type="text" class="form-control" id="Text1">
+</div>
+<div class="form-group has-error">
+    <label class="control-label" for="inputError">输入不符合要求！</label>
+    <input type="text" class="form-control" id="Text2">
+</div>
+<div class="form-group has-success">
+    <label class="control-label" for="inputSuccess">输入文本符合要
+        求！</label>
+    <input type="text" class="form-control" id="Text3">
+</div>
+<div class="form-group has-success has-feedback">
+    <label class="control-label" for="inputSuccess2">Input with
+        success</label>
+    <input type="text" class="form-control" id="inputSuccess2" />
+    <span class="glyphicon glyphicon-ok form-control-feedback"></span>
+</div>
+<button type="button" class="btn btn-primary btn-lg active">button</button>
+<a href="#" class="btn btn-primary btn-lg active" role="button">link</a>
+
+</body>
+</html>

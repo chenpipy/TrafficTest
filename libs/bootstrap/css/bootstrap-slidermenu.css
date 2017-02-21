@@ -1,0 +1,179 @@
+/*! =======================================================
+                      VERSION  4.4.1              
+========================================================= */
+/* ---------------------------------------------------------------------- */
+/*  PageSlide Left
+/* ---------------------------------------------------------------------- */
+.bootstrap-slidermenu {
+  overflow: hidden;
+  background: #eeeeee;
+}
+.slider-menu * {
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+}
+.slider-menu {
+  background: #eeeeee;
+  list-style: none;
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  position: relative;
+}
+.slider-menu li {
+  border: none;
+  display: block;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+.slider-menu li a {
+  border: 0 none;
+  display: block;
+  font-size: 13px;
+  font-weight: 300;
+  margin: 0;
+  padding: 10px 15px;
+  position: relative;
+  text-decoration: none;
+  color: #4f7d9d;
+}
+.slider-menu li ul.sub-menu {
+  clear: both;
+  list-style: none;
+  margin: 8px 0 0 0;
+  display: none;
+  padding: 0;
+}
+.slider-menu li ul.sub-menu li a {
+  background: none;
+  display: block;
+  font-size: 14px;
+  font-weight: 300;
+  border: none;
+  margin: 0;
+  padding-bottom: 10px;
+  padding-left: 50px;
+  padding-right: 20px;
+  padding-top: 10px;
+  text-decoration: none;
+}
+.slider-menu > li {
+  border-top: 1px solid #dbe0e3;
+  overflow: auto;
+  _height: 1%;
+}
+.slider-menu > li:first-child {
+  border-top: none;
+}
+.slider-menu > li > a {
+  line-height: 36px;
+  padding: 15px;
+  float: left;
+  display: block;
+  width: 80%;
+  padding: 15px 10%;
+}
+.slider-menu > li > a i {
+  width: 36px;
+  height: 36px;
+  line-height: 36px;
+  font-size: 20px;
+  float: left;
+}
+.slider-menu > li > a i.icon-arrow {
+  font-size: 18px;
+}
+.slider-menu > li > a span {
+  float: left;
+  font-size: 16px;
+}
+.slider-menu li.open > ul.sub-menu {
+  display: block;
+  padding: 0;
+}
+.slider-menu i.icon-arrow {
+  float: right !important;
+  text-align: center;
+  font-size: 14px;
+}
+.slider-menu > li > a:hover,
+.slider-menu > li > a:hover i {
+  color: #59cdfe;
+}
+.slider-menu > li > ul.sub-menu > li > a {
+  margin-left: 2px;
+}
+.slider-menu > li > ul.sub-menu > li.open > a,
+.slider-menu > li > ul.sub-menu > li:hover > a {
+  background: #ffffff !important;
+  color: #59cdfe !important;
+  border-left: 2px solid #59cdfe;
+  margin-left: 0px;
+}
+.slider-menu > li > ul.sub-menu > li > ul.sub-menu > li > a {
+  padding-left: 60px;
+}
+.slider-menu > li > ul.sub-menu > li > ul.sub-menu > li:hover a,
+.slider-menu > li > ul.sub-menu > li > ul.sub-menu > li.open a {
+  color: #59cdfe;
+}
+.bootstrap-slidermenu .slider-footer {
+  position: absolute;
+  padding: 12px 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  background: #e5e5e5;
+  color: #666666;
+  text-align: center;
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  -ms-transition: all 0.3s;
+  -o-transition: all 0.3s;
+  transition: all 0.3s;
+}
+.bootstrap-slidermenu .slider-footer a {
+  color: inherit;
+  text-decoration: none;
+}
+.bootstrap-slidermenu .slider-footer .btn.btn-menu-toggle {
+  font-size: 14px;
+  padding: 0px;
+  color: #666666;
+}
+.bootstrap-slidermenu .slider-footer .btn.btn-menu-toggle i {
+  font-size: 24px;
+  vertical-align: middle;
+}
+.bootstrap-slidermenu .slider-footer .btn.btn-menu-toggle .text {
+  margin-left: 0.5em;
+  vertical-align: middle;
+}
+.bootstrap-slidermenu.slider-close .slider-menu > li > .list-switch {
+  width: 100%;
+  height: 70px;
+  line-height: 70px;
+  text-align: center;
+  padding: 0px;
+}
+.bootstrap-slidermenu.slider-close .slider-menu > li > .list-switch i.icon {
+  float: none;
+  display: inline-block;
+}
+.bootstrap-slidermenu.slider-close .slider-menu > li > .list-switch * {
+  display: none;
+}
+.bootstrap-slidermenu.slider-close .slider-menu > li > .list-switch:HOVER,
+.bootstrap-slidermenu.slider-close .slider-menu > li.open > .list-switch {
+  background: #59cdfe;
+}
+.bootstrap-slidermenu.slider-close .slider-menu > li > .list-switch:HOVER i,
+.bootstrap-slidermenu.slider-close .slider-menu > li.open > .list-switch i {
+  color: #ffffff;
+}
+
+
+

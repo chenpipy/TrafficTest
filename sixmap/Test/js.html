@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="../libs/workshop-resources/ol3/ol-debug.js"></script>
+    <script type="text/javascript" src="../libs/olMap/jquery-1.9.1.min.js"></script>
+
+
+
+    <script type="text/javascript" src="../libs/bootstrap/js/bootstrap.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="../libs/workshop-resources/ol3/ol.css">
+    <link type="text/css" rel="stylesheet" href="../libs/bootstrap/css/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="../libs/olMap/olMap.css">
+</head>
+
+<body>
+<div id="map" class="map"></div>
+<script type="text/javascript">
+    $(function () {
+        var center=ol.proj.transform([109.9581, 27.6028],'EPSG:4326','EPSG:3857');
+        var map = new ol.Map({
+            target: 'map',
+            view: new ol.View({
+                center: center,
+                projection: 'EPSG:3857',
+                zoom: 12,
+                minZoom:8,
+                maxZoom:18
+            })
+        });
+        var url = 'http://192.168.1.155:8080/tianditu/{z}/{y}/{x}.png';
+        var veclayer = new ol.layer.Tile({
+            source: new ol.source.XYZ({
+                url: url
+            })
+        });
+        map.addLayer(veclayer);
+        alert(map.getView().getZoom());
+    });
+</script>
+</body>
+</html>

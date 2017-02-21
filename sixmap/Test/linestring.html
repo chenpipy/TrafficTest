@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<link type="text/css" rel="stylesheet" href="../libs/workshop-resources/ol3/ol.css">
+<link type="text/css" rel="stylesheet" href="../libs/bootstrap/css/bootstrap.min.css">
+<link type="text/css" rel="stylesheet" href="../libs/olMap/olMap.css">
+
+<script type="text/javascript" src="../libs/workshop-resources/ol3/ol.js"></script>
+<script type="text/javascript" src="../libs/olMap/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="../libs/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../libs/olMap/olMap.js"></script>
+<body>
+<div id="map"></div>
+
+</body>
+<script>
+
+
+    $(function () {
+        var olMap=new OLMap(document.getElementById('map'));
+        olMap.initialize();
+        urlData='../libs/olMap/data/';
+        //添加json矢量数据
+        olMap.addVectorLayer(urlData+'gis_segment_double.geojson','Double',olMap.setstylePolyLineCommon(3.2,"#029d03"));
+       var features= olMap.getVectorLayerFeaturesByTitle('Double');
+        for (var i = 0; i < features.length; i++) {
+            var feature=features[i];
+            alert(feature)
+        }
+        olMap.map.on('click',function (evt) {
+            var featureAtPixel=olMap.getFeaturesAtPixel(evt.pixel);
+            var itittle=featureAtPixel.layer.get('title');
+            if (itittle=='Double') {
+                var feature=featureAtPixel.feature;
+                console.log(feature.getGeometry().getCoordinates())
+            }
+        });
+
+    });
+</script>
+</html>

@@ -1,0 +1,112 @@
+{
+  "RECORDS": [
+    {
+      "ivd_Id": "1",
+      "place": "红星路与迎丰路",
+      "segment_code": "BH00750202",
+      "road_code": "BH0075",
+      "road_name": "怀化市鹤城区红星路",
+      "direction": "南向北",
+      "ip": "192.168.75.100",
+      "lane": "1,2,3,4",
+      "junction_code": "1",
+      "rstp_url": "rtsp:\/\/192.168.75.101:8554"
+    },
+    {
+      "ivd_Id": "2",
+      "place": "红星路与正清路",
+      "segment_code": "BH00750301",
+      "road_code": "BH0075",
+      "road_name": "怀化市鹤城区红星路",
+      "direction": "北向南",
+      "ip": "192.168.75.102",
+      "lane": "1,2,3,4",
+      "junction_code": "2",
+      "rstp_url": "rtsp:\/\/192.168.75.103:8554"
+    },
+    {
+      "ivd_Id": "3",
+      "place": "红星路与正清路",
+      "segment_code": "BH00750201",
+      "road_code": "BH0075",
+      "road_name": "怀化市鹤城区红星路",
+      "direction": "南向北",
+      "ip": "192.168.75.104",
+      "lane": "5,6,7,8",
+      "junction_code": "2",
+      "rstp_url": "rtsp:\/\/192.168.75.105:8554"
+    },
+    {
+      "ivd_Id": "4",
+      "place": "红星路与天星路",
+      "segment_code": "BH00750302",
+      "road_code": "BH0075",
+      "road_name": "怀化市鹤城区红星路",
+      "direction": "北向南",
+      "ip": "192.168.75.106",
+      "lane": "1,2,3,4,5",
+      "junction_code": "3",
+      "rstp_url": "rtsp:\/\/192.168.75.107:8554"
+    },
+    {
+      "ivd_Id": "5",
+      "place": "红星路与天星路",
+      "segment_code": "BH00300108",
+      "road_code": "BH0030",
+      "road_name": "怀化市鹤城区红星路",
+      "direction": "东向西",
+      "ip": "192.168.75.108",
+      "lane": "6,7,8,9,10",
+      "junction_code": "3",
+      "rstp_url": "rtsp:\/\/192.168.75.109:8554"
+    },
+    {
+      "ivd_Id": "6",
+      "place": "红星路与天星路",
+      "segment_code": "BH00740205",
+      "road_code": "BH0074",
+      "road_name": "怀化市鹤城区红星路",
+      "direction": "南向北",
+      "ip": "192.168.75.110",
+      "lane": "11,12,13,14",
+      "junction_code": "3",
+      "rstp_url": "rtsp:\/\/192.168.75.111:8554"
+    },
+    {
+      "ivd_Id": "7",
+      "place": "红星路与天星路",
+      "segment_code": "BH00270403",
+      "road_code": "BH0027",
+      "road_name": "怀化市鹤城区红星路",
+      "direction": "西向东",
+      "ip": "192.168.75.112",
+      "lane": "15,16,17,18,19",
+      "junction_code": "3",
+      "rstp_url": "rtsp:\/\/192.168.75.113:8554"
+    },
+    {
+      "ivd_Id": "8",
+      "place": "红星路与南环路",
+      "segment_code": "BH00740305",
+      "road_code": "BH0074",
+      "road_name": "怀化市鹤城区红星路",
+      "direction": "北向南",
+      "ip": "192.168.75.114",
+      "lane": "1,2,3",
+      "junction_code": "4",
+      "rstp_url": "rtsp:\/\/192.168.75.115:8554"
+    },
+    {
+      "ivd_Id": "9",
+      "place": "红星路与南环路",
+      "segment_code": "BH00450206",
+      "road_code": "BH0045",
+      "road_name": "怀化市鹤城区红星路",
+      "direction": "南向北",
+      "ip": "192.168.75.116",
+      "lane": "4,5,6",
+      "junction_code": "4",
+      "rstp_url": "rtsp:\/\/192.168.75.117:8554"
+    }
+  ]
+}

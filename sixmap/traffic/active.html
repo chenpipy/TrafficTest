@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link type="text/css" rel="stylesheet" href="../libs/workshop-resources/ol3/ol.css">
+    <link type="text/css" rel="stylesheet" href="../libs/bootstrap/css/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="../libs/olMap/olMap.css">
+
+    <script type="text/javascript" src="../libs/workshop-resources/ol3/ol.js"></script>
+    <script type="text/javascript" src="../libs/olMap/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="../libs/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../libs/olMap/olMap.js"></script>
+    <title>我的项目</title>
+</head>
+<body>
+    <div id="map"></div>
+    <div id="lineChart" class="ivd-lineChart">
+        <div class="form-inline pull-left">
+            <div class="from-group">
+                <select class="form-control" id="vlcSrc">
+                </select>
+            </div>
+        </div>
+        <div class="pull-right space-1">
+            <div class="form-group">
+                <input class="btn btn-default" value="关闭" id="btnClose"/>
+            </div>
+        </div>
+        <div id="video">
+            <object classid="clsid:9BE31822-FDAD-461B-AD51-BE1D1C159921"
+                    codebase="http://download.videolan.org/pub/videolan/vlc/last/win32/axvlc.cab" id="vlc" name="vlc"
+                    class="vlcPlayer" events="True">
+                <param name="Src" value="rtsp://192.168.75.101:8554">
+                <param name="ShowDisplay" value="True">
+                <param name="AutoLoop" value="False">
+                <param name="AutoPlay" value="True">
+                <embed id="vlcEmb" type="application/x-google-vlc-plugin" version="VideoLAN.VLCPlugin.2" autoplay="yes"
+                       loop="no" target="rtsp://192.168.75.101:8554" height="410" width="640">
+            </object>
+        </div>
+    </div>
+
+</body>
+    <script type="text/javascript">
+        var  olMap;
+        var colors=new Array();
+        var urlData;
+        var urlImgs;
+        function loadMap(){
+            initColor(colors);
+            olMap=new OLMap(document.getElementById('map'));
+            olMap.initialize()
+            olMap.showMapSwitchControl(true,olMap);
+            olMap.showLogoControl(true);
+
+            urlData='../libs/olMap/data/';
+            urlImgs='../libs/olMap/imgs/';
+            //添加json矢量数据
+            olMap.addVectorLayer(urlData+'gis_segment_double.geojson','Double Lines',olMap.setstylePolyLineCommon(3.2,colors[0]));
+            olMap.addVectorLayer(urlData+'gis_tollgate.geojson','Tollgate',olMap.stylePointIcon(urlImgs+'tollgate.png'));
+            olMap.addVectorLayer(urlData + 'gis_ivd_device.geojson', 'IVD Device', olMap.stylePointIcon(urlImgs + 'ivd.png'));
+            olMap.addVectorLayer(urlData+'gis_epolice.geojson','Epolice',olMap.stylePointIcon(urlImgs + 'epolice.png'));
+            //自定义显示图例
+            var json=[
+                {layer:'Double Lines', text:'实时路况',src:urlImgs+'traffic.png'},
+                {layer:'Tollgate',text:'卡扣',src:urlImgs+'tollgate.png'},
+                {layer:'Epolice',text:'电警',src:urlImgs+'epolice.png'},
+                {layer:'IVD Device',text:'IVD设备',src:urlImgs+'ivd.png'}
+            ];
+            olMap.showLegendControl(true,json,olMap);
+
+            olMap.map.on('click',function (evt) {
+                olMap.showFeatureInfo(null,null);
+                var featureAtPixel=olMap.getFeaturesAtPixel(evt.pixel);
+                if(featureAtPixel){
+                var iTittle=featureAtPixel.layer.get('title');
+                    switch(iTittle){
+                        case 'Tollgate':
+                            var showInfo='<label>平均车速50千米每小时</label>';
+                            olMap.showFeatureInfo(featureAtPixel.feature,showInfo);
+                            break;
+                        case 'IVD Device':
+                            var place=featureAtPixel.feature.get('place');
+                            var ivdId=featureAtPixel.feature.get('ivd_id');
+                            ajaxIvdData(ivdId,place);
+                            break;
+                    }
+                }
+            });
+            $("#vlcSrc").change(function () {
+                changeDevice();
+            });
+            $("#btnClose").bind("click",function () {
+                $("#lineChart").hide();
+            })
+        }
+        //传入一个数组，然后像数组中添加颜色集合
+        function initColor(colors) {
+            colors.push("#029d03");
+            colors.push("#94d351");
+            colors.push('#fffe04');
+            colors.push('#f6b900');
+            colors.push('#E87C25');
+            colors.push('#ff0000');
+        }
+        //下拉框切换设备
+        function changeDevice(){
+            var src=$("#vlcSrc").val();
+            var vlcObj=$("#video");
+            loadVideo(vlcObj,src);
+        };
+        //加载ivd数据
+        function ajaxIvdData(id,place) {
+            $.ajax({
+                url:urlData+'it_ivd_device_info.json',
+                type:'get',
+                dataType:'json',
+                success:function (data) {
+                    var ivdData=data.RECORDS;
+                    //清空下拉框
+                    $('#vlcSrc').find("option").remove();
+
+                    //加载视屏流地址
+                    for(var i=0;i<ivdData.length;i++){
+                        if(ivdData[i].place==place){
+                            $("#vlcSrc").append("<option value='"+ivdData[i].rstp_url+"'>"+ivdData[i].place+ivdData[i].direction+ "</option>>");
+                            //选中当前的IVD
+                            if(ivdData[i].ivd_Id==id){
+                                $("#vlcSrc").val(ivdData[i].rstp_url);
+                            }
+
+                        }
+                    }
+                    $('#lineChart').show();
+                },
+
+            });
+        };
+        //载入视屏src地址
+        function loadVideo(obj,src) {
+            var tagHtml='<object classid="clsid:9BE31822-FDAD-461B-AD51-BE1D1C159921" codebase="http://download.videolan.org/pub/videolan/vlc/last/win32/axvlc.cab"'
+                    + 'id="vlc" name="vlc" class="vlcPlayer" events="True">' +
+                    ' <param name="Src" value="' + src + '" /> '
+                    + '<param name="ShowDisplay" value="True" /> '
+                    + ' <param name="AutoLoop" value="False" />'
+                    + '<param name="AutoPlay" value="True" />'
+                    + '<embed id="vlcEmb"  type="application/x-google-vlc-plugin" version="VideoLAN.VLCPlugin.2" autoplay="yes" loop="no" width="640" height="480" target="' + src + '" ></embed>'
+                    + '</object>'
+        obj.empty();
+            obj.append(tagHtml);
+        }
+        loadMap();
+
+    </script>
+</html>

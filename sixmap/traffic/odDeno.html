@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        html, body, #map {
+            height: 100%;
+            padding: 0;
+            margin: 0;
+            width: 100%;
+        }
+    </style>
+    <link type="text/css" rel="stylesheet" href="../libs/bootstrap/css/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="../libs/workshop-resources/ol3/ol.css">
+    <link type="text/css" rel="stylesheet" href="../libs/olMap/olMap.css">
+
+    <script type="text/javascript" src="../libs/olMap/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="../libs/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../libs/workshop-resources/ol3/ol.js"></script>
+    <script type="text/javascript" src="../libs/olMap/olMap.js"></script>
+    <script type="text/javascript" src="../libs/echarts/main.js"></script>
+    <script type="text/javascript" src="../libs/echarts/ol3-echarts3.js"></script>
+
+</head>
+<body>
+<div id="map"></div>
+<script>
+    $(document).ready(function () {
+
+        /*var map = new ol.Map({
+            target: 'map',
+            controls: [],
+            layers: [
+                new ol.layer.Tile({
+                    source: new ol.source.OSM()
+                })
+            ],
+            view: new ol.View({
+                projection: 'EPSG:4326',
+                center: [109.983, 27.547],
+                zoom: 13
+            })
+        });*/
+        var olMap=new OLMap(document.getElementById('map'));
+        olMap.initialize();
+        $.get('../libs/olMap/data/gis_area_town.geojson',function (geojson) {
+            echarts.registerMap('echartsmap', geojson);
+        });
+        var geoCoordMap = {
+            '坨院': [110.03176746, 27.58033938],
+            '城北': [109.96510592, 27.56605171],
+            '城南': [109.97327201, 27.53032376],
+            '河西': [109.94119996, 27.53657923],
+            '红星': [109.97839399, 27.54786923],
+            '城中': [109.95891614, 27.55209892],
+            '黄金坳': [109.94125302, 27.62877159],
+            '鸭嘴岩': [109.95164427, 27.48917355]
+        };
+
+        var TYData = [
+            [{name: '坨院'}, {name: '城北', value: 95}],
+            [{name: '坨院'}, {name: '城南', value: 90}],
+            [{name: '坨院'}, {name: '河西', value: 80}],
+            [{name: '坨院'}, {name: '红星', value: 70}],
+            [{name: '坨院'}, {name: '城中', value: 60}],
+            [{name: '坨院'}, {name: '黄金坳', value: 50}],
+            [{name: '坨院'}, {name: '鸭嘴岩', value: 40}]
+        ];
+
+        var HXData = [
+            [{name: '河西'}, {name: '城北', value: 95}],
+            [{name: '河西'}, {name: '城南', value: 90}],
+            [{name: '河西'}, {name: '坨院', value: 80}],
+            [{name: '河西'}, {name: '红星', value: 70}],
+            [{name: '河西'}, {name: '城中', value: 60}],
+            [{name: '河西'}, {name: '黄金坳', value: 50}],
+            [{name: '河西'}, {name: '鸭嘴岩', value: 40}]
+        ];
+
+        var HXZData = [
+            [{name: '红星'}, {name: '城北', value: 95}],
+            [{name: '红星'}, {name: '城南', value: 90}],
+            [{name: '红星'}, {name: '坨院', value: 80}],
+            [{name: '红星'}, {name: '河西', value: 70}],
+            [{name: '红星'}, {name: '城中', value: 60}],
+            [{name: '红星'}, {name: '黄金坳', value: 50}],
+            [{name: '红星'}, {name: '鸭嘴岩', value: 40}]
+        ];
+
+        var planePath = 'path://M1705.06,1318.313v-89.254l-319.9-221.799l0.073-208.063c0.521-84.662-26.629-121.796-63.961-121.491c-37.332-0.305-64.482,36.829-63.961,121.491l0.073,208.063l-319.9,221.799v89.254l330.343-157.288l12.238,241.308l-134.449,92.931l0.531,42.034l175.125-42.917l175.125,42.917l0.531-42.034l-134.449-92.931l12.238-241.308L1705.06,1318.313z';
+
+        var convertData = function (data) {
+            var res = [];
+            for (var i = 0; i < data.length; i++) {
+                var dataItem = data[i];
+                var fromCoord = geoCoordMap[dataItem[0].name];
+                var toCoord = geoCoordMap[dataItem[1].name];
+                if (fromCoord && toCoord) {
+                    res.push([{
+                        coord: fromCoord
+                    }, {
+                        coord: toCoord
+                    }]);
+                }
+            }
+            return res;
+        };
+
+        var color = ['#a6c84c', '#ffa022', '#46bee9'];
+        var series = [];
+        [['坨院', TYData], ['河西', HXData], ['红星', HXZData]].forEach(function (item, i) {
+            series.push({
+                        name: item[0] + ' Top10',
+                        type: 'lines',
+                        zlevel: 1,
+                        effect: {
+                            show: true,
+                            period: 6,
+                            trailLength: 0.7,
+                            color: '#fff',
+                            symbolSize: 3
+                        },
+                        lineStyle: {
+                            normal: {
+                                color: color[i],
+                                width: 0,
+                                curveness: 0.2
+                            }
+                        },
+                        data: convertData(item[1])
+                    },
+                    {
+                        name: item[0] + ' Top10',
+                        type: 'lines',
+                        zlevel: 2,
+                        effect: {
+                            show: true,
+                            period: 6,
+                            trailLength: 0,
+                            symbol: planePath,
+                            symbolSize: 15
+                        },
+                        lineStyle: {
+                            normal: {
+                                color: color[i],
+                                width: 1,
+                                opacity: 0.4,
+                                curveness: 0.2
+                            }
+                        },
+                        data: convertData(item[1])
+                    },
+                    {
+                        name: item[0] + ' Top10',
+                        type: 'effectScatter',
+                        coordinateSystem: 'geo',
+                        zlevel: 2,
+                        rippleEffect: {
+                            brushType: 'stroke'
+                        },
+                        label: {
+                            normal: {
+                                show: true,
+                                position: 'right',
+                                formatter: '{b}'
+                            }
+                        },
+                        symbolSize: function (val) {
+                            return val[2] / 8;
+                        },
+                        itemStyle: {
+                            normal: {
+                                color: color[i]
+                            }
+                        },
+                        data: item[1].map(function (dataItem) {
+                            return {
+                                name: dataItem[1].name,
+                                value: geoCoordMap[dataItem[1].name].concat([dataItem[1].value])
+                            };
+                        })
+                    });
+        });
+
+        option = {
+//        backgroundColor: '#404a59',
+            title: {
+                text: 'ol3扩展Echarts3之模拟迁徙',
+                subtext: 'Develop By happyport',
+                left: 'center',
+                textStyle: {
+                    color: '#fff'
+                }
+            },
+            tooltip: {
+                trigger: 'item'
+            },
+            legend: {
+                orient: 'vertical',
+                top: 'bottom',
+                left: 'right',
+                data: ['坨院 Top10', '河西 Top10', '红星 Top10'],
+                textStyle: {
+                    color: '#fff'
+                },
+                selectedMode: 'single'
+            },
+            geo: {
+                center: [109.983200073242, 27.5471000671387],
+                map: '',
+                label: {
+                    emphasis: {
+                        show: false
+                    }
+                },
+                roam: true,
+                itemStyle: {
+                    normal: {
+                        areaColor: '#323c48',
+                        borderColor: '#404a59'
+                    },
+                    emphasis: {
+                        areaColor: '#2a333d'
+                    }
+                }
+            },
+            series: series
+        };
+
+        olMap.map.once('postrender', function (e) {
+            console.log('aa');
+
+            var overlay = new Ol3Echarts(olMap.map, echarts);
+            var chartsContainer = overlay.getEchartsContainer();
+            var myChart = overlay.initECharts(chartsContainer);
+            overlay.setOption(option);
+        });
+    });
+</script>
+</body>
+
+</html>

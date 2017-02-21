@@ -1,0 +1,363 @@
+﻿/**
+ * Based on Openlayers v3.19.1
+ * Created by femg on 2016/10/18.
+ */
+
+/*************************************页面初始配置 start***********************************/
+body {
+    /*去掉与Bootstrap冲突的样式*/
+    /*margin: 0;*/
+    /*padding: 0;*/
+    /*border: 0;*/
+    /*overflow: hidden;*/
+    /*height: 100%;*/
+    /*width: 100%;*/
+    /*font-size: 14px;*/
+    /*font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;*/
+}
+
+.btn, .form-control, .form-control-label, .nav {
+    font-family: 'Microsoft Yahei';
+}
+
+#title {
+    font-size: 22px;
+    font-family: "Times New Roman";
+    color: rgb(10, 36, 106); /*rgb(10,36,106)*/
+    font-weight: bold;
+    display: block;
+}
+
+#map, .olMap {
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    position: absolute;
+}
+
+.layerSwitcherDiv {
+    height: 30px;
+    right: 0;
+    position: absolute;
+    background-color: #F5F5F5;
+    width: 120px;
+    border: 1px solid;
+    top: 0;
+    z-index: 2000;
+    font-size: 14px;
+    font-family: "Microsoft Yahei";
+}
+
+.LabelList {
+    height: 30px;
+    line-height: 30px;
+    position: absolute;
+    top: 43px;
+    z-index: 1;
+    display: none;
+}
+
+.LabelList ul {
+    list-style: outside none none;
+    margin: 0;
+    padding: 0;
+}
+
+.LabelList ul li {
+    border: 1px solid #bccfeb;
+    float: left;
+    height: 30px;
+    padding-left: 3px;
+    width: 70px;
+    box-shadow: 0 0 10px #5a6a81;
+    background-color: #BBC9DE;
+}
+
+.LabelList ul li:hover {
+    background-color: #E3E8F0;
+    cursor: pointer;
+}
+
+.LabelList ul li:active {
+    background-color: #d0d3cf;
+}
+
+/*************************************页面初始配置 end***********************************/
+
+/************************************地图右下角logo控件样式 start*********************/
+.ol-attribution.ol-logo-only {
+    bottom: 1.1em;
+}
+
+/************************************地图右下角logo end***********************************/
+
+/************************************地图比例尺、导航条控件样式 start********************************/
+.scale-line {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+}
+
+#map .ol-zoom .ol-zoom-out {
+    margin-top: 110px;
+}
+
+#map .ol-zoomslider {
+    background-color: transparent;
+    top: 2.3em;
+    height: 100px;
+}
+
+#map .ol-touch .ol-zoom .ol-zoom-out {
+    margin-top: 112px;
+}
+
+#map .ol-touch .ol-zoomslider {
+    top: 2.75em;
+}
+
+#map .ol-zoom-in.ol-has-tooltip:hover [role=tooltip],
+#map .ol-zoom-in.ol-has-tooltip:focus [role=tooltip] {
+    top: 3px;
+}
+
+#map .ol-zoom-out.ol-has-tooltip:hover [role=tooltip],
+#map .ol-zoom-out.ol-has-tooltip:focus [role=tooltip] {
+    top: 132px;
+}
+
+/************************************比例尺、导航条控件样式 end********************************/
+
+/************************************底图切换控件样式 start********************************/
+.map-switch {
+    position: absolute;
+    bottom: 180px;
+    right: 15px;
+    width: 80px;
+    cursor: pointer;
+    -webkit-transition-property: width, background-color;
+    transition-property: width, background-color;
+    -webkit-transition-duration: .4s;
+    transition-duration: .4s;
+    background-color: rgba(255, 255, 255, 0.85)
+}
+
+.map-switch .map-switch-card {
+    height: 60px;
+    width: 80px;
+    position: absolute;
+    border-radius: 2px;
+    top: 10px;
+    box-sizing: border-box;
+    border: 1px solid transparent;
+    border: 1px solid rgba(153, 153, 153, .42);
+    background: url(http://pc-niefeng:8080/imgs/shadow.png) no-repeat 0 0;
+    background-size: 86px 240px;
+    -webkit-transition-property: right, background-image;
+    transition-property: right, background-image;
+    -webkit-transition-duration: .4s;
+    transition-duration: .4s
+}
+
+.map-switch .roadmap {
+    top: 10px;
+    border: 2px solid #3385FF;
+    background-position: 0 0;
+    background-image: url(http://pc-niefeng:8080/imgs/baseMap.png);
+}
+
+.map-switch .satellite {
+    top: 75px;
+    border: none;
+    background-position: 0 -60px;
+    background-image: url(http://pc-niefeng:8080/imgs/baseMap.png);
+}
+
+.map-switch-card:hover .map-switch-box {
+    visibility: visible;
+}
+
+.map-switch .map-switch-box {
+    visibility: hidden;
+    position: absolute;
+    width: 100%;
+    height: 20px;
+    line-height: 22px;
+    color: #fff;
+    background: rgba(0, 0, 0, .35)
+}
+
+.map-switch .map-switch-card span {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    display: inline-block;
+    padding: 2px 2px 1px 4px;
+    font-size: 12px;
+    color: #FFF;
+    background-color: rgba(100, 150, 255, .75);
+    border-top-left-radius: 5px;
+}
+
+.map-switch .map-switch-box input {
+    position: absolute;
+    left: 2px;
+    top: 2px;
+    cursor: pointer;
+    color: #fff;
+}
+
+.map-switch .map-switch-box p {
+    display: inline;
+    font-size: 10.5px;
+    font-family: "Microsoft Yahei";
+    margin-left: 20px;
+    padding: 0;
+    color: #fff;
+}
+
+/************************************底图切换控件样式 end********************************/
+
+/************************************IVD视频浏览窗体控件样式 end********************************/
+.ivd-lineChart {
+    position: absolute;
+    height: 440px;
+    width: 640px;
+    display: none;
+    z-index: 999999;
+    border: 1px solid #ccc;
+    top: 45px;
+    left: 90px;
+    background-color: #EEEEEE;
+}
+
+/************************************IVD视频浏览窗体控件样式 end********************************/
+
+/************************************地图图例控件样式 start********************************/
+.map-legend {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: rgba(0, 60, 136, .45);
+    border: 1px solid rgba(0, 161, 255, 0.47);
+    border-radius: 4px;
+}
+
+.map-legend .title {
+    margin: 5px 7.5px 0px 7.5px;
+    color: #fff;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.map-legend-labelTitle {
+    cursor: pointer;
+}
+
+.map-legend-labelClose {
+    text-decoration: none;
+    position: absolute;
+    right: 5px;
+    top: 2px;
+    cursor: pointer;
+    /*font-size: 20px;*/
+    /*content: "✖";*/
+}
+
+.map-legend-ui li {
+    list-style: none;
+    margin: 2px 12px 2px 15px;
+}
+
+.map-legend-input {
+    /*vertical-align: middle;*/
+}
+
+.map-legend-ui label {
+    color: #fff;
+    font-size: 13.5px;
+    /*vertical-align: middle;*/
+}
+
+.map-legend-ui img {
+    margin: 0 3px;
+    height: 30px;
+    width: 30px;
+    /*vertical-align: middle;*/
+}
+
+/************************************地图图例控件样式 end********************************/
+
+/************************************地图冒泡popup控件样式 strat********************************/
+.ol-popup {
+    position: absolute;
+    background-color: rgba(255, 255, 255, .9);
+    /*background-color: rgba(0, 60, 136, .45);*/
+    -webkit-filter: drop-shadow(0 1px 4px rgba(0, 0, 0, 0.2));
+    filter: drop-shadow(0 1px 4px rgba(0, 0, 0, 0.2));
+    padding: 15px;
+    border-radius: 10px;
+    border: 1px solid #cccccc;
+    /*border: 1px solid rgba(0, 161, 255, 0.47);*/
+    bottom: 12px;
+    left: -49px;
+    min-width: 200px;
+    color: #333
+    /*color: #ffffff;*/
+}
+
+.ol-popup:after, .ol-popup:before {
+    top: 100%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+}
+
+.ol-popup:after {
+    border-top-color: white;
+    /*border-top-color: rgba(0, 60, 136, .45);*/
+    border-width: 10px;
+    left: 48px;
+    margin-left: -10px;
+}
+
+.ol-popup:before {
+    border-top-color: #cccccc;
+    /*border-top-color: rgba(0, 161, 255, 0.47);*/
+    border-width: 11px;
+    left: 48px;
+    margin-left: -11px;
+}
+
+.ol-popup-closer {
+    text-decoration: none;
+    position: absolute;
+    top: 2px;
+    right: 8px;
+    cursor: pointer;
+}
+
+.ol-popup-closer:after {
+    content: "✖";
+    cursor: pointer;
+}
+
+#popup-content label {
+    /*min-height: 80px;*/
+}
+
+#popup-content {
+    font-size: 14px;
+    font-family: "Microsoft Yahei";
+    /*min-width: 150px;*/
+    /*min-height: 80px;*/
+}
+
+#popup-content .markerInfo {
+    font-weight: bold;
+}
+
+/************************************地图冒泡popup控件样式 end********************************/

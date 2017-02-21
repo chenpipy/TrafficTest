@@ -1,0 +1,499 @@
+{
+"RECORDS":[
+{
+"link_dir_id":"BH00040101",
+"road_status":"2",
+"update_time":"2016\/9\/28 08:59:47",
+"grade":null,
+"data_source":"1",
+"volume":null,
+"speed":21.0227185690531
+},
+{
+"link_dir_id":"BH00040102",
+"road_status":"2",
+"update_time":"2016\/9\/28 08:59:47",
+"grade":null,
+"data_source":"1",
+"volume":null,
+"speed":21.0227185690531
+},
+{
+"link_dir_id":"BH00040103",
+"road_status":"2",
+"update_time":"2016\/9\/28 08:59:47",
+"grade":null,
+"data_source":"1",
+"volume":null,
+"speed":21.0227185690531
+},
+{
+"link_dir_id":"BH00040104",
+"road_status":"2",
+"update_time":"2016\/9\/28 08:59:47",
+"grade":null,
+"data_source":"1",
+"volume":null,
+"speed":21.0227185690531
+},
+{
+"link_dir_id":"BH00040105",
+"road_status":"2",
+"update_time":"2016\/9\/28 08:59:47",
+"grade":null,
+"data_source":"1",
+"volume":null,
+"speed":20.642217334995
+},
+{
+"link_dir_id":"BH00040106",
+"road_status":"2",
+"update_time":"2016\/9\/28 08:59:47",
+"grade":null,
+"data_source":"1",
+"volume":null,
+"speed":20.388549845623
+},
+{
+"link_dir_id":"BH00090102",
+"road_status":"0",
+"update_time":"2016\/9\/28 08:59:47",
+"grade":null,
+"data_source":"1",
+"volume":null,
+"speed":28.096140720455
+},
+{
+"link_dir_id":"BH00090103",
+"road_status":"0",
+"update_time":"2016\/9\/28 08:59:47",
+"grade":null,
+"data_source":"1",
+"volume":null,
+"speed":28.096140720455
+},
+{
+"link_dir_id":"BH00090101",
+"road_status":"0",
+"update_time":"2016\/9\/28 08:59:47",
+"grade":null,
+"data_source":"1",
+"volume":null,
+"speed":28.096140720455
+},
+{
+"link_dir_id":"BH00090104",
+"road_status":"0",
+"update_time":"2016\/9\/28 08:59:47",
+"grade":null,
+"data_source":"1",
+"volume":null,
+"speed":28.096140720455
+},
+{
+"link_dir_id":"BH00550204",
+"road_status":"2",
+"update_time":"2016\/9\/28 08:59:47",
+"grade":null,
+"data_source":"1",
+"volume":null,
+"speed":16.9415264402995
+},
+{
+"link_dir_id":"BH00550206",
+"road_status":"2",
+"update_time":"2016\/9\/28 08:59:47",
+"grade":null,
+"data_source":"1",
+"volume":null,
+"speed":16.9415264402995
+},
+{
+"link_dir_id":"BH00550207",
+"road_status":"2",
+"update_time":"2016\/9\/28 08:59:47",
+"grade":null,
+"data_source":"1",
+"volume":null,
+"speed":16.9415264402995
+},
+{
+"link_dir_id":"BH00550205",
+"road_status":"2",
+"update_time":"2016\/9\/28 08:59:47",
+"grade":null,
+"data_source":"1",
+"volume":null,
+"speed":16.9415264402995
+},
+{
+"link_dir_id":"BH00550208",
+"road_status":"2",
+"update_time":"2016\/9\/28 08:59:47",
+"grade":null,
+"data_source":"1",
+"volume":null,
+"speed":16.9415264402995
+},
+{
+"link_dir_id":"BH00550209",
+"road_status":"2",
+"update_time":"2016\/9\/28 08:59:47",
+"grade":null,
+"data_source":"1",
+"volume":null,
+"speed":16.9415264402995
+},
+{
+"link_dir_id":"BH00300405",
+"road_status":"0",
+"update_time":"2016\/9\/28 08:59:47",
+"grade":null,
+"data_source":"1",
+"volume":null,
+"speed":35.9834234870188
+},
+{
+"link_dir_id":"BH00300406",
+"road_status":"0",
+"update_time":"2016\/9\/28 08:59:47",
+"grade":null,
+"data_source":"1",
+"volume":null,
+"speed":35.9834234870188
+},
+{
+"link_dir_id":"BH00300408",
+"road_status":"0",
+"update_time":"2016\/9\/28 08:59:47",
+"grade":null,
+"data_source":"1",
+"volume":null,
+"speed":35.9834234870188
+},
+{
+"link_dir_id":"BH00300407",
+"road_status":"0",
+"update_time":"2016\/9\/28 08:59:47",
+"grade":null,
+"data_source":"1",
+"volume":null,
+"speed":35.9834234870188
+},
+{
+"link_dir_id":"BH00040403",
+"road_status":"2",
+"update_time":"2016\/9\/28 08:59:47",
+"grade":null,
+"data_source":"1",
+"volume":null,
+"speed":24.0549023261074
+},
+{
+"link_dir_id":"BH00040402",
+"road_status":"2",
+"update_time":"2016\/9\/28 08:59:47",
+"grade":null,
+"data_source":"1",
+"volume":null,
+"speed":23.7150190843541
+},
+{
+"link_dir_id":"BH00040404",
+"road_status":"0",
+"update_time":"2016\/9\/28 08:59:47",
+"grade":null,
+"data_source":"1",
+"volume":null,
+"speed":26.0635276469581
+},
+{
+"link_dir_id":"BH00040405",
+"road_status":"0",
+"update_time":"2016\/9\/28 08:59:47",
+"grade":null,
+"data_source":"1",
+"volume":null,
+"speed":26.0635276469581
+},
+{
+"link_dir_id":"BH00040406",
+"road_status":"0",
+"update_time":"2016\/9\/28 08:59:47",
+"grade":null,
+"data_source":"1",
+"volume":null,
+"speed":26.063527646958
+},
+{
+"link_dir_id":"BH00090402",
+"road_status":"2",
+"update_time":"2016\/9\/28 08:59:47",
+"grade":null,
+"data_source":"1",
+"volume":null,
+"speed":18.8370517307841
+},
+{
+"link_dir_id":"BH00090401",
+"road_status":"2",
+"update_time":"2016\/9\/28 08:59:47",
+"grade":null,
+"data_source":"1",
+"volume":null,
+"speed":18.8370517307841
+},
+{
+"link_dir_id":"BH00090403",
+"road_status":"2",
+"update_time":"2016\/9\/28 08:59:47",
+"grade":null,
+"data_source":"1",
+"volume":null,
+"speed":22.6715364169837
+},
+{
+"link_dir_id":"BH00040407",
+"road_status":"0",
+"update_time":"2016\/9\/28 08:59:47",
+"grade":null,
+"data_source":"1",
+"volume":null,
+"speed":26.063527646958
+},
+{
+"link_dir_id":"BH00090404",
+"road_status":"0",
+"update_time":"2016\/9\/28 08:59:47",
+"grade":null,
+"data_source":"1",
+"volume":null,
+"speed":25.391103836
+},
+{
+"link_dir_id":"BH00090405",
+"road_status":"0",
+"update_time":"2016\/9\/28 08:59:47",
+"grade":null,
+"data_source":"1",
+"volume":null,
+"speed":25.391103836
+},
+{
+"link_dir_id":"BH00700301",
+"road_status":"0",
+"update_time":"2016\/9\/28 08:59:47",
+"grade":null,
+"data_source":"1",
+"volume":null,
+"speed":25.2488976330204
+},
+{
+"link_dir_id":"BH00090406",
+"road_status":"0",
+"update_time":"2016\/9\/28 08:59:47",
+"grade":null,
+"data_source":"1",
+"volume":null,
+"speed":25.391103836
+},
+{
+"link_dir_id":"BH00330204",
+"road_status":"0",
+"update_time":"2016\/9\/28 08:59:47",
+"grade":null,
+"data_source":"1",
+"volume":null,
+"speed":30.4375156096338
+},
+{
+"link_dir_id":"BH00330203",
+"road_status":"0",
+"update_time":"2016\/9\/28 08:59:47",
+"grade":null,
+"data_source":"1",
+"volume":null,
+"speed":30.4375156096338
+},
+{
+"link_dir_id":"BH00330205",
+"road_status":"0",
+"update_time":"2016\/9\/28 08:59:47",
+"grade":null,
+"data_source":"1",
+"volume":null,
+"speed":30.4375156096338
+},
+{
+"link_dir_id":"BH00700302",
+"road_status":"0",
+"update_time":"2016\/9\/28 08:59:47",
+"grade":null,
+"data_source":"1",
+"volume":null,
+"speed":25.2488976330204
+},
+{
+"link_dir_id":"BH00330206",
+"road_status":"0",
+"update_time":"2016\/9\/28 08:59:47",
+"grade":null,
+"data_source":"1",
+"volume":null,
+"speed":30.4375156096338
+},
+{
+"link_dir_id":"BH00750301",
+"road_status":"2",
+"update_time":"2016\/9\/28 08:59:47",
+"grade":null,
+"data_source":"1",
+"volume":null,
+"speed":12.3812019357887
+},
+{
+"link_dir_id":"BH00330207",
+"road_status":"0",
+"update_time":"2016\/9\/28 08:59:47",
+"grade":null,
+"data_source":"1",
+"volume":null,
+"speed":30.4375156096338
+},
+{
+"link_dir_id":"BH00750302",
+"road_status":"2",
+"update_time":"2016\/9\/28 08:59:47",
+"grade":null,
+"data_source":"1",
+"volume":null,
+"speed":12.3812019357887
+},
+{
+"link_dir_id":"BH01020202",
+"road_status":"0",
+"update_time":"2016\/9\/28 08:59:47",
+"grade":null,
+"data_source":"1",
+"volume":null,
+"speed":39.9848826846138
+},
+{
+"link_dir_id":"BH01020203",
+"road_status":"0",
+"update_time":"2016\/9\/28 08:59:47",
+"grade":null,
+"data_source":"1",
+"volume":null,
+"speed":39.9848826846138
+},
+{
+"link_dir_id":"BH00190207",
+"road_status":"2",
+"update_time":"2016\/9\/28 08:59:48",
+"grade":null,
+"data_source":"1",
+"volume":null,
+"speed":17.1547462351275
+},
+{
+"link_dir_id":"BH00190206",
+"road_status":"2",
+"update_time":"2016\/9\/28 08:59:48",
+"grade":null,
+"data_source":"1",
+"volume":null,
+"speed":17.1547462351275
+},
+{
+"link_dir_id":"BH00190208",
+"road_status":"2",
+"update_time":"2016\/9\/28 08:59:48",
+"grade":null,
+"data_source":"1",
+"volume":null,
+"speed":17.1547462351275
+},
+{
+"link_dir_id":"BH00700201",
+"road_status":"0",
+"update_time":"2016\/9\/28 08:59:48",
+"grade":null,
+"data_source":"1",
+"volume":null,
+"speed":36.8273056177162
+},
+{
+"link_dir_id":"BH00700202",
+"road_status":"0",
+"update_time":"2016\/9\/28 08:59:48",
+"grade":null,
+"data_source":"1",
+"volume":null,
+"speed":36.8273056177162
+},
+{
+"link_dir_id":"BH00700203",
+"road_status":"0",
+"update_time":"2016\/9\/28 08:59:48",
+"grade":null,
+"data_source":"1",
+"volume":null,
+"speed":36.8273056177162
+},
+{
+"link_dir_id":"BH00700204",
+"road_status":"0",
+"update_time":"2016\/9\/28 08:59:48",
+"grade":null,
+"data_source":"1",
+"volume":null,
+"speed":36.8273056177162
+},
+{
+"link_dir_id":"BH00700205",
+"road_status":"0",
+"update_time":"2016\/9\/28 08:59:48",
+"grade":null,
+"data_source":"1",
+"volume":null,
+"speed":36.8273056177162
+},
+{
+"link_dir_id":"BH00700206",
+"road_status":"0",
+"update_time":"2016\/9\/28 08:59:48",
+"grade":null,
+"data_source":"1",
+"volume":null,
+"speed":36.8273056177162
+},
+{
+"link_dir_id":"BH00750202",
+"road_status":"0",
+"update_time":"2016\/9\/28 08:59:48",
+"grade":null,
+"data_source":"1",
+"volume":null,
+"speed":25.9995049256675
+},
+{
+"link_dir_id":"BH00750201",
+"road_status":"0",
+"update_time":"2016\/9\/28 08:59:48",
+"grade":null,
+"data_source":"1",
+"volume":null,
+"speed":25.9995049256675
+},
+{
+"link_dir_id":"BH00700207",
+"road_status":"0",
+"update_time":"2016\/9\/28 08:59:48",
+"grade":null,
+"data_source":"1",
+"volume":null,
+"speed":36.8273056177162
+}
+]
+}

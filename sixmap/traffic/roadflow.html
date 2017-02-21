@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <link type="text/css" rel="stylesheet" href="../libs/workshop-resources/ol3/ol.css">
+    <link type="text/css" rel="stylesheet" href="../libs/bootstrap/css/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="../libs/olMap/olMap.css">
+
+    <script type="text/javascript" src="../libs/workshop-resources/ol3/ol-debug.js"></script>
+    <script type="text/javascript" src="../libs/olMap/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="../libs/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../libs/olMap/olMap.js"></script>
+    <script type="text/javascript" src="../libs/echarts/echarts.js"></script>
+    <script type="text/javascript" src="../libs/echarts/esl.js"></script>
+<body>
+<div id="map"></div>
+</body>
+<script>
+    //var olMap = new OLMap(document.getElementById('map'));
+    //olMap.initialize();
+    //    app.title = '北京公交路线 - 线特效';
+    var myChart=echarts.init(document.getElementById('map'));
+    $.get("../libs/olMap/data/gis_area.geojson", function (response) {
+       var geoMapData = response;
+        echarts.registerMap('hhmap', geoMapData);
+        $.get('../libs/olMap/data/gis_segment_double.geojson', function (data) {
+            /*  var hStep = 300 / (data.length - 1);*/
+            var points = [];
+            $.each(data.features, function (index, info) {
+                var point={
+                    coords:info.geometry.coordinates[0]
+                }
+                points.push(point);
+            })
+            myChart.setOption(
+                    {
+                        backgroundColor: '#404a59',
+                        title: {
+                            text: '道路流向分析',
+                            subtext: '道路',
+                            left: 'center',
+                            textStyle: {
+                                color: '#fff',
+                                fontSize: 20,
+                                fontWeight: 'bolder'
+                            }
+                        },
+                        geo: {
+                            center: [109.983200073242, 27.5471000671387],
+                            map: 'hhmap',
+                            roam: true,
+                            zoom: 3,
+                            label: {
+                                emphasis: {
+                                    show: false //不显示地图标注
+                                }
+                            },
+                            itemStyle: {
+                                normal: {
+                                    areaColor: '#323c48',
+                                    borderColor: '#404a59'
+                                },
+                                emphasis: {
+                                    areaColor: '#323c48'
+                                }
+                            }
+                        },
+                        series: [
+                            {
+                                name: 'ROADS',
+                                type: 'lines',
+                                coordinateSystem: 'geo',
+                                polyline: true,
+                                data: points,
+                                silent: true,
+                                lineStyle: {normal: {color: '#029d03', opacity: 0.75, width: 3}},
+                                progressiveThreshold: 600,
+                                progressive: 400
+                            },
+                            {
+                                name: 'EFFECT',
+                                type: 'lines',
+                                coordinateSystem: 'geo',
+                                polyline: true,
+                                data: points,
+                                lineStyle: {normal: {width: 0}},
+                                effect: {
+                                    show: true,
+                                    period: 4,  //单个动画速度
+                                    //constantSpeed: 15,  //固定速度
+                                    trailLength: 0.5,
+                                    color: '#ff0000',
+                                    symbolSize: 3
+                                },
+                                zlevel: 1
+                            }
+                        ]
+                    })
+    })
+    });
+
+
+</script>
+</html>

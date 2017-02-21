@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>怀化市公安局交通警察支队大数据分析平台 - 单项违法行为</title>
+    <link rel="shortcut icon" href="../libs/olMap/imgs/favicon.ico" type="image/x-icon"/>
+    <link type="text/css" rel="stylesheet"
+          href="../libs/bootstrap/css/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="../libs/ol3/ol.css">
+    <link type="text/css" rel="stylesheet" href="../libs/olMap/olMap.css">
+    <script type="text/javascript" src="../libs/olMap/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript"
+            src="../libs/bootstrap/js/bootstrap.min.js"></script>
+
+    <style type="text/css">
+        /************************************电警单项违法控件样式 end********************************/
+        .epolice-group{
+            position: absolute;
+            height: 25px;
+            z-index: 999999;
+            top: 45px;
+            left: 550px;
+        }
+    </style>
+</head>
+<body>
+<div id="map"></div>
+<div class="epolice-group">
+    <select class="form-control selectpicker bs-select-hidden mobile-device" data-mobile="true" id="eplSrc">
+        <option value="-1">请选择查询路口<span class="caret"></span></option>
+    </select>
+</div>
+</body>
+
+<script>
+    var olMap;
+    var urlImgs;
+    var urlData;
+    var urlWFS;
+    var features;
+    //页面加载时，初始化界面
+    $(function () {
+        loadMap();  //初始化加载地图
+        window.setTimeout('setPointText()',50);
+    });
+    //初始化地图
+    function loadMap(){
+        olMap = new OLMap(document.getElementById('map'));
+        olMap.initialize();
+
+        //地图底图控件
+        olMap.showMapSwitchControl(true,olMap);
+
+        //获取底图服务的地址
+        urlWFS=olMap.getGlobalParam('urlGeoServerWFS');
+        urlImgs=olMap.getGlobalParam('urlImgsDirectory');
+        urlData='../libs/olMap/data/';
+        olMap.addVectorLayer(urlData+'gis_epolice.geojson','Epolice',olMap.stylePointIcon(urlImgs+'epolice.png'));
+    }
+
+    function getUrlIcon(val) {
+        if (val)
+            return urlImgs + 'epolice.png';
+        return urlImgs + 'null.png';
+    }
+
+    function getText(val) {
+        if (val)
+            return "( " + val + " )";
+        return '';
+    }
+
+    //设置文字注记
+    function setPointText() {
+        features = olMap.getVectorLayerFeaturesByTitle('Epolice');
+        if (features) {
+            for (var i = 0; i < features.length; i++) {
+                var feature = features[i];
+                var code = feature.get('code');
+                var gid = feature.get('gid');
+                var place=feature.get('place');
+                setSelect(gid,place);
+                feature.setStyle(olMap.stylePointIcon(getUrlIcon(gid), getText(gid)));
+            }
+        }
+    }
+    //追加option标签函数
+    function setSelect(description,location){
+        if(description)
+            $("#eplSrc").append("<option value='"+description+"'>" +location+ "</option>");
+    }
+
+    //触发change事件执行的函数
+    $(function () {
+        $("#eplSrc").bind("change",function () {
+            var selectValue=$(this).val();
+            if(selectValue==-1){
+                return;
+            }
+            else{
+                if(features){
+                    for(var i=0;i<features.length;i++){
+                        var fea=features[i];
+                        var place=fea.get("place");
+                        var gid=fea.get("gid").toString();
+                        if(gid!==selectValue){
+                            fea.setStyle(olMap.stylePointIcon(urlImgs + 'null.png',''));
+                        }
+                        else{
+                            fea.setStyle(olMap.stylePointIcon(urlImgs + 'epolice.png',selectValue));
+                        }
+
+                    }
+                }
+            }
+        })
+    });
+
+
+    //需求说明：
+    //1.位置分布图：在怀化市GIS地图上根据电警设备安装位置显示电警图标，并在图标上显示此位置电警所抓拍的所选单项违法行为起数（若某处的电警设备未抓拍当前所选单项违法行为，则此设备不在GIS上展示）。
+    //2.细节需求：在交叉路口，四个车向，可能会存在多个电警设备，为避免在GIS上电警图标重叠遮挡，所以，每个交叉路口只显示一个电警设备图标，此图标上的违法起数是此交叉路口各个车向多个设备单项违法起数的总和。
+    //3.若在查询条件中选定了某个路口，则只在地图上标出该路口电警位置及违法总次数。
+
+</script>
+
+</html>

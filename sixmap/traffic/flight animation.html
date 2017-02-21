@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link type="text/css" rel="stylesheet" href="../libs/workshop-resources/ol3/ol.css">
+    <link type="text/css" rel="stylesheet" href="../libs/bootstrap/css/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="../libs/olMap/olMap.css">
+
+    <script type="text/javascript" src="../libs/workshop-resources/ol3/ol.js"></script>
+    <script type="text/javascript" src="../libs/olMap/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="../libs/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../libs/olMap/olMap.js"></script>
+</head>
+<body>
+<div id="map"></div>
+</body>
+<script>
+
+    var routestring=route.toJsonstring;
+
+    var olMap = new OLMap(document.getElementById('map'));
+
+    olMap.initialize();
+
+    var urlImgs = '../libs/olMap/imgs/car.png';
+
+    var routeCoords = [
+        [109.973127, 27.555605], [109.974249, 27.555266], [109.975156, 27.555109], [109.976847, 27.554990],
+        [109.978988, 27.554741], [109.983139, 27.553867], [109.986163, 27.554034], [109.987687, 27.554227],
+        [109.988405, 27.554461], [109.988994, 27.554742], [109.991110, 27.556210], [109.993082, 27.557657],
+        [109.993778, 27.558069], [109.994725, 27.558443], [109.995978, 27.558728],
+    ];
+
+    //初始化车辆位置
+    var iMonitoring = olMap.initMonitoring(routeCoords[0], '湘A·00001', urlImgs );
+
+    //监控车辆行驶轨迹
+    iMonitoring = olMap.startMonitoring(iMonitoring, routeCoords);
+
+    //停止车辆监控，清除轨迹
+    //olMap.stopMonitoring(iMonitoring);
+
+</script>
+</html>

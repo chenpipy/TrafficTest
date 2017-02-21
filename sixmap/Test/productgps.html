@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="../libs/olMap/jquery-1.9.1.min.js"></script>
+</head>
+<body>
+    <script>
+        var json;
+        var convertData = function (data) {
+            var res = [];
+            for (var i = 0; i < data.length; i++) {
+                var dataItem = data[i];
+                var lai = dataItem[0];
+                var lon = dataItem[1];
+                if (lai && lon) {
+                    res.push(
+                        {
+                            "coords": {
+                                "speed": Math.random()*2,
+                                "accuracy": 5,
+                                "altitudeAccuracy": 8,
+                                "altitude": dataItem[0],
+                                "longitude": lai,
+                                "heading": 67.5,
+                                "latitude":lon
+                            },
+                            "timestamp": 1394788264972
+                        }
+                    );
+                }
+            }
+            return res;
+        };
+        $(function () {
+            $.get('123.geojson',function (data) {
+                var coords=data.features[0].geometry.coordinates;
+                json={
+                    data:convertData(coords)
+                }
+                console.log(JSON.stringify(json));
+                }
+            );
+        });
+    </script>
+</body>
+</html>

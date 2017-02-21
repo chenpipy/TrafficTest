@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>我的地图</title>
+    <link rel="shortcut icon" href="../libs/olMap/imgs/favicon.ico" type="image/x-icon"/>
+    <link type="text/css" rel="stylesheet"
+          href="../libs/bootstrap/css/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="../libs/ol3/ol.css">
+    <link type="text/css" rel="stylesheet" href="../libs/olMap/olMap.css">
+    <script type="text/javascript" src="../libs/jQuery/jquery.js"></script>
+    <script type="text/javascript" src="../libs/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../libs/ol3/ol-debug.js"></script>
+    <script type="text/javascript" src="libs/test/olmap.js"></script>
+</head>
+<body>
+    <div id="map">map</div>
+</body>
+    <script>
+        var olMap;
+        function loadMap() {
+            olMap=new OLMap(document.getElementById('map'));
+            olmap.initialize();
+        }
+
+
+    </script>
+</html>

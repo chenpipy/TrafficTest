@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link type="text/css" rel="stylesheet" href="../libs/workshop-resources/ol3/ol.css">
+    <link type="text/css" rel="stylesheet" href="../libs/bootstrap/css/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="../libs/olMap/olMap.css">
+
+    <script type="text/javascript" src="../libs/olMap/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="../libs/workshop-resources/ol3/ol.js"></script>
+    <script type="text/javascript" src="../libs/bootstrap/js/bootstrap.min.js"></script>
+
+    <script type="text/javascript" src="../libs/olMap/olMap.js"></script>
+    <script type="text/javascript" src="../libs/echarts/echarts-all.js"></script>
+    <script type="text/javascript" src="../libs/echarts/OpenLayer3Ext.js"></script>
+</head>
+<body>
+<div id='map'></div>
+
+</body>
+<script>
+
+    $(document).ready(function () {
+        var olMap=new OLMap(document.getElementById('map'));
+        olMap.initialize();
+        olMap.map.getLayerGroup().setOpacity(0.5)
+        var option = {
+            color: ['gold', 'aqua', 'lime'],
+            title: {
+                text: '模拟迁徙',
+                subtext: '数据纯属虚构',
+                x: 'center',
+                textStyle: {
+                    color: '#fff'
+                }
+            },
+            tooltip: {
+                trigger: 'item',
+                formatter: function (v) {
+                    return v[1].replace(':', ' > ');
+                }
+            },
+            legend: {
+                orient: 'vertical',
+                x: 'left',
+                data: ['坨院', '河西', '红星'],
+                selectedMode: 'single',
+                selected: {
+                    '上海': false,
+                    '广州': false
+                },
+                textStyle: {
+                    color: '#fff'
+                }
+            },
+            toolbox: {
+                show: true,
+                orient: 'vertical',
+                x: 'right',
+                y: 'center',
+                feature: {
+                    mark: {show: true},
+                    dataView: {show: true, readOnly: false},
+                    restore: {show: true},
+                    saveAsImage: {show: true}
+                }
+            },
+            dataRange: {
+                min: 0,
+                max: 100,
+                range: {
+                    start: 10,
+                    end: 90
+                },
+                x: 'right',
+                calculable: true,
+                color: ['#ff3333', 'orange', 'yellow', 'lime', 'aqua'],
+                textStyle: {
+                    color: '#fff'
+                }
+            },
+            series: [
+                {
+                    name: '坨院',
+                    type: 'map',
+                    mapType: 'none',
+                    data: [],
+                    geoCoord: {
+                        '坨院': [110.03176746, 27.58033938],
+                        '城北': [109.96510592, 27.56605171],
+                        '城南': [109.97327201, 27.53032376],
+                        '河西': [109.94119996, 27.53657923],
+                        '红星': [109.97839399, 27.54786923],
+                        '城中': [109.95891614, 27.55209892],
+                        '黄金坳': [109.94125302, 27.62877159],
+                        '鸭嘴岩': [109.95164427, 27.48917355]
+                    },
+
+                    markLine: {
+                        smooth: true,
+                        effect: {
+                            show: true,
+                            scaleSize: 1,
+                            period: 30,
+                            color: '#fff',
+                            shadowBlur: 10
+                        },
+                        itemStyle: {
+                            normal: {
+                                borderWidth: 1,
+                                lineStyle: {
+                                    type: 'solid',
+                                    shadowBlur: 10
+                                }
+                            }
+                        },
+                        data: [
+                            [{name: '坨院'}, {name: '城北', value: 95}],
+                            [{name: '坨院'}, {name: '城南', value: 90}],
+                            [{name: '坨院'}, {name: '河西', value: 80}],
+                            [{name: '坨院'}, {name: '红星', value: 70}],
+                            [{name: '坨院'}, {name: '城中', value: 60}],
+                            [{name: '坨院'}, {name: '黄金坳', value: 50}],
+                            [{name: '坨院'}, {name: '鸭嘴岩', value: 40}]
+                        ]
+                    },
+                    markPoint: {
+                        symbol: 'emptyCircle',
+                        symbolSize: function (v) {
+                            return 10 + v / 10
+                        },
+                        effect: {
+                            show: true,
+                            shadowBlur: 0
+                        },
+                        itemStyle: {
+                            normal: {
+                                label: {show: false}
+                            }
+                        },
+                        data: [
+                            {name: '城北', value: 95},
+                            {name: '城南', value: 90},
+                            {name: '河西', value: 80},
+                            {name: '红星', value: 70},
+                            {name: '城中', value: 60},
+                            {name: '黄金坳', value: 50},
+                            {name: '鸭嘴岩', value: 40}
+                        ],
+                    }
+
+                },
+                {
+                    name: '河西',
+                    type: 'map',
+                    mapType: 'none',
+                    data: [],
+                    markLine: {
+                        smooth: true,
+                        effect: {
+                            show: true,
+                            scaleSize: 1,
+                            period: 30,
+                            color: '#fff',
+                            shadowBlur: 10
+                        },
+                        itemStyle: {
+                            normal: {
+                                borderWidth: 1,
+                                lineStyle: {
+                                    type: 'solid',
+                                    shadowBlur: 10
+                                }
+                            }
+                        },
+                            data:[
+                                [{name: '河西'}, {name: '城北', value: 95}],
+                                [{name: '河西'}, {name: '城南', value: 90}],
+                                [{name: '河西'}, {name: '坨院', value: 80}],
+                                [{name: '河西'}, {name: '红星', value: 70}],
+                                [{name: '河西'}, {name: '城中', value: 60}],
+                                [{name: '河西'}, {name: '黄金坳', value: 50}],
+                                [{name: '河西'}, {name: '鸭嘴岩', value: 40}]
+                        ]
+                    },
+                    markPoint: {
+                        symbol: 'emptyCircle',
+                        symbolSize: function (v) {
+                            return 10 + v / 10
+                        },
+                        effect: {
+                            show: true,
+                            shadowBlur: 0
+                        },
+                        itemStyle: {
+                            normal: {
+                                label: {show: false}
+                            }
+                        },
+                        data: [
+                            {name: '城北', value: 95},
+                            {name: '城南', value: 90},
+                            {name: '坨院', value: 80},
+                            {name: '红星', value: 70},
+                            {name: '城中', value: 60},
+                            {name: '黄金坳', value: 50},
+                            {name: '鸭嘴岩', value: 40}
+                        ]
+                    }
+                },
+                {
+                    name: '红星',
+                    type: 'map',
+                    mapType: 'none',
+                    data: [],
+                    markLine: {
+                        smooth: true,
+                        effect: {
+                            show: true,
+                            scaleSize: 1,
+                            period: 30,
+                            color: '#fff',
+                            shadowBlur: 10
+                        },
+                        itemStyle: {
+                            normal: {
+                                borderWidth: 1,
+                                lineStyle: {
+                                    type: 'solid',
+                                    shadowBlur: 10
+                                }
+                            }
+                        },
+                        data: [
+                            [{name: '红星'}, {name: '城北', value: 95}],
+                            [{name: '红星'}, {name: '城南', value: 90}],
+                            [{name: '红星'}, {name: '坨院', value: 80}],
+                            [{name: '红星'}, {name: '河西', value: 70}],
+                            [{name: '红星'}, {name: '城中', value: 60}],
+                            [{name: '红星'}, {name: '黄金坳', value: 50}],
+                            [{name: '红星'}, {name: '鸭嘴岩', value: 40}]
+                        ]
+                    },
+                    markPoint: {
+                        symbol: 'emptyCircle',
+                        symbolSize: function (v) {
+                            return 10 + v / 10
+                        },
+                        effect: {
+                            show: true,
+                            shadowBlur: 0
+                        },
+                        itemStyle: {
+                            normal: {
+                                label: {show: false}
+                            }
+                        },
+                        data: [
+                            {name: '城北', value: 95},
+                            {name: '城南', value: 90},
+                            {name: '坨院', value: 80},
+                            {name: '河西', value: 70},
+                            {name: '城中', value: 60},
+                            {name: '黄金坳', value: 50},
+                            {name: '鸭嘴岩', value: 40}
+                        ]
+                    }
+                },
+
+            ]
+        };
+        var olMapExt;
+        olMap.map.once('postrender', function (e) {
+            console.log('aa');
+            if (olMapExt !== undefined)
+                return;
+            olMapExt = new OpenLayer3Ext(olMap.map, echarts);
+            var container = olMapExt.getEchartsContainer();
+            var myChart = olMapExt.initECharts(container);
+            window.onresize = myChart.resize;
+            olMapExt.setOption(option, true);
+        });
+
+    });
+
+</script>
+</html>

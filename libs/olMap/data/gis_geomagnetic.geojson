@@ -1,0 +1,7 @@
+{
+"type": "FeatureCollection",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "gid": 4, "code": "192.168.166.254", "place": "紫东路与顺天大道路口", "road_code": null, "road_name": null, "segment_code": null, "junction_code": null, "longitude": 109.993873, "latitude": 27.569895 }, "geometry": { "type": "Point", "coordinates": [ 110.002205, 27.561257 ] } }
+]
+}

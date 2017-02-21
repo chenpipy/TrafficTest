@@ -1,0 +1,228 @@
+/***********************************************初始化***************************** */
+/*body{
+    margin: 0;
+    padding:0;
+    font-size: 14px;
+}*/
+body,html,div,ul,li,iframe,p,img,span{
+    border:none;padding:0;margin:0;
+}
+body ,html{
+    width:100%;height:100%;overflow:hidden;
+}
+body{
+    font-size: 14px;color:#000000;font-family: "微软雅黑";
+}
+dl,dt,dd{display:block;margin:0;}
+a{
+    text-decoration: none;
+}
+
+
+
+/*头部区域样式*/
+#header{
+    background-color: #4c4e5a;
+    height:60px ;
+    /*line-height: 55px;*/
+   /* width:auto;*/
+    width:100%;
+   /*padding: 5px 5px 0px 5px;*/
+    position:absolute;
+   /* vertical-align: middle;
+    overflow: hidden;*/
+    box-shadow:0 2px 4px #ccc;
+
+}
+#header .logo{
+    /*display: inline-block;*/
+    /*background-color: #5cb85c;*/
+    /*vertical-align: middle;*/
+    height: 50px;
+    float:left;
+    margin-top: 6px;
+    margin-left: 20px;
+    position:absolute;
+}
+#header .logo img{
+    height: 50px;
+    width: 50px;
+}
+/*知道span标签的高度，然后用总高度减去span高度，除以2，就是margin的上下距离，实现居中目的*/
+#header .logo span{
+    font-size: 1.5em;
+    color: rgb(248, 255, 248);
+    /*新增*/
+    display: block;
+    float:right;
+    font-weight: bold;
+    margin: 10px 15px;
+}
+#header .help{
+    /*background-color: #8a6d3b;*/
+    color:#ffffff;
+    font-size: 1.1em;
+    /*margin-right: 20px;*/
+    border:1px solid #ffffff ;
+    border-radius:2px;
+    line-height: 38px;
+    display:block;
+    float:right;
+    margin:11px 20px;
+    padding:0px 10px;
+
+}
+a.help span{
+    font-family: "Times New Roman";
+    font-size: 1.3em;
+    display:block;
+    float:left;
+    padding-right:10px;
+}
+a.help:hover,#page a.help:hover{
+color:#3385FF;
+    background-color: #5cb85c;
+}
+/*主体框架*/
+#content{
+    position:absolute;
+    width:100%;
+    top:60px;
+    left:0;
+    right:0;
+    bottom:0;
+    border-bottom:1px solid #c0c0c0;
+}
+/*导航栏部分*/
+.leftsidebar_box{
+   position:absolute;
+    width:220px;
+    height:100%;
+    background-color: #78ff46;
+    overfolw-y:scroll;
+}
+.line{
+    height:2px;
+    width:100%;
+    background-image:url(../images/left/line_bg.png);
+    background-repeat: repeat-x;
+}
+.leftsidebar_box dt{
+    position:relative;
+    padding-left: 40px;
+    padding-right:10px;
+    line-height:50px;
+    font-size: 16px;
+    color: #f6fbf9;
+    background-color:#5cb85c;
+    background-repeat: no-repeat;
+    background-position: 10px center;
+    cursor:pointer;
+}
+.leftsidebar_box dd{
+    padding-left: 40px;;
+    height: 30px;
+    line_height:30px;
+    color: #ffffff;
+    background-color: #000000;
+    cursor:pointer;
+}
+
+.leftsidebar_box dt img{
+    position:absolute;
+    right: 10px;
+    top: 20px;
+}
+
+.control dt{background-image: url(../images/left/system.png) }
+.label dt{background-image: url(../images/left/statistics.png)}
+
+#code_wrapper{
+    position:absolute;
+    /*left:220px;*/
+    height:100%;
+    z-index:2;
+    background-color:#ffffff ;
+    border-left: 1px solid #c0c0c0;
+    border-right: 1px solid #c0c0c0;
+    margin:0 0 0 220px;
+}
+#code_core{
+    position: relative;
+    width: 468px;
+    overflow: hidden;
+    hieght:100%;
+    display: block;
+}
+#code_arrow{
+    position:absolute;
+    top:50%;
+    right:0;
+    margin: -48px -29px 0 0;
+    line-height: 88px;
+    width: 29px;
+    height: 94px;
+    font-size: 36px;
+    font-family: "TImes";
+    color:#fff;
+    text-align: center;
+    cursor:pointer;
+    background: #000000;
+    border: 1px solid #c0c0c0;
+    border-left: none;
+    border-radius: 0 6px 6px 0;
+}
+#code_arrow span{display: block ;}
+#code_arrow p{display: none;color:#c0c0c0;margin:0;}
+#code_arrow.go_back{background:#fff;color:#c0c0c0; }
+#code_arrow.go_back span{display:none;}
+#code_arrow.go_back p{display:block;}
+
+.code_head{
+    height:41px;
+    line-height: 41px;
+    padding:0 10px;
+    background: rgba(156, 159, 164, 0.21);
+    font-size: 14px;
+    border-bottom:1px solid #c0c0c0;
+}
+.code_head a, #page .code_head a{
+    float: right;
+    display: block;
+    padding:0 3px;
+}
+.code_head a:hover  #page a.zeroclipboard-is-hover{color:#3385FF;}
+.code_body{
+   position:absolute;
+    width:100%;
+    top:41px;
+    bottom:0;
+}
+#codes{dispaly:none;}
+.iframe_wrapper{
+    /*width: 100%;*/
+    width: auto;
+    height: 100%;
+    border: none;
+    z-index: 1;
+    /*margin-left: 220px;*/
+    margin-left: 690px;
+    position: relative;
+    /*top: 210px;*/
+    top: 0;
+    bottom: 0;
+}
+#container_iframe{
+    width: 100%;
+    height: 100%;
+    border: none;
+    z-index: 1;
+    /*margin-left: 220px;*/
+    position: absolute;
+    /*top: 210px;*/
+    top: 0px;
+    /*left:-7px;*/
+    bottom: 0px;
+    background: #fff;
+
+}
