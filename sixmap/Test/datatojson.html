@@ -12,21 +12,17 @@
             var res = [];
             for (var i = 0; i < data.length; i++) {
                 var dataItem = data[i];
-                var lai = dataItem[0];
-                var lon = dataItem[1];
+                var name=dataItem.properties.tollgate_name;
+                var lai = dataItem.properties.latitude;
+                var lon = dataItem.properties.longitude;
+                var code=dataItem.properties.tollgate_code;
                 if (lai && lon) {
                     res.push(
                         {
-                            "coords": {
-                                "speed": Math.random()*2,
-                                "accuracy": 5,
-                                "altitudeAccuracy": 8,
-                                "altitude": dataItem[0],
-                                "longitude": lai,
-                                "heading": 67.5,
-                                "latitude":lon
-                            },
-                            "timestamp": 1394788264972
+                            tollgate_name:name,
+                            laititude:lai,
+                            longitude:lon,
+                            tollgate_code:code,
                         }
                     );
                 }
@@ -34,11 +30,9 @@
             return res;
         };
         $(function () {
-            $.get('123.geojson',function (data) {
-                var coords=data.features[0].geometry.coordinates;
-                json={
-                    data:convertData(coords)
-                }
+            $.get('../libs/olMap/data/gis_tollgate.geojson',function (data) {
+                var features=data.features;
+                var json=convertData(features);
                 console.log(JSON.stringify(json));
                 }
             );
