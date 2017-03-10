@@ -9,11 +9,39 @@
 <body>
 <div id='map' style='width: 400px; height: 300px;'></div>
 <script>
-    mapboxgl.accessToken = '<your access token here>';
-    var map = new mapboxgl.Map({
-        container: 'map',
-        style: 'mapbox://styles/mapbox/streets-v9'
-    });
+    'use strict'
+    // demo01
+   /* var a = 20;
+    function fn() {
+        console.log(this.a);
+    }
+    fn();*/
+    // demo02
+    /*var a = 20;
+    function fn() {
+        function foo() {
+            console.log(this.a);
+        }
+        foo();
+    }
+    fn();*/
+    // demo03
+    var b = 20;
+    var obj = {
+        b: 10,
+        c: this.b + 20,
+        fn: function () {
+            return this.b;
+        }
+    }
+
+    console.log(obj.c);
+    console.log(obj.fn());
+//@param
+
+   console.log(this.name)
+    alert(window.name);
+
 </script>
 </body>
 </html>
