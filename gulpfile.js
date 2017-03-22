@@ -10,10 +10,17 @@ var reload=browserSync.reload;
 gulp.task('serve',function() {
 
     browserSync.init({
-        server: "./"
+        server: {
+            baseDir:"./"
+        }
     });
     gulp.watch("./*.css").on('change',reload);
-    gulp.watch("./*.html").on('change', reload);
+    gulp.watch("./sixmap/traffic/*.html").on('change', reload);
+    gulp.watch("./sixmap/libs/olMap/*.js").on('change',reload);
+    gulp.watch("./sixmap/libs/js/*.js").on('change',reload)
+
+    gulp.watch("./sixmap/Test/*.html").on('change', reload);
+
 });
 
 // scss编译后的css将注入到浏览器里实现更新

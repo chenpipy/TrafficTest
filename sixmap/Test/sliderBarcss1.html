@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style type="text/css">
+        input#range {
+            width: 600px;
+            height: 10px;
+            background: rgba(60, 114, 230, .8);
+            border: 1px solid #333;
+            -webkit-border-radius: 5px;
+            -webkit-appearance: none !important;
+        }
+
+        input#range::-webkit-slider-thumb{
+            width: 28px;
+            height: 28px;
+
+            background: -webkit-gradient(
+                    linear,
+                    left top,
+                    left bottom,
+                    from(#fff),
+                    to(#ccc)
+            );
+
+            border: 1px solid #000;
+            -webkit-box-shadow: 0 0 6px #000;
+            -webkit-border-radius: 14px;
+            -webkit-appearance: none !important;
+        }
+
+        #result {
+            border: 2px solid #ccc;
+            width: 32px;
+        }
+
+    </style>
+</head>
+<body>
+<input id="slider" type="range" id="range" min="1" max="1001" step="10" value="1" title="进度调调节">
+
+</body>
+</html>
