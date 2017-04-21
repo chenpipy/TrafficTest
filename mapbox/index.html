@@ -3,44 +3,81 @@
 <head>
     <meta charset="UTF-8">
     <title>Title * ToDoMVC模版</title>
-    <script src='https://api.mapbox.com/mapbox-gl-js/v0.32.1/mapbox-gl.js'></script>
-    <link href='https://api.mapbox.com/mapbox-gl-js/v0.32.1/mapbox-gl.css' rel='stylesheet' />
+    <script src="../geoserver/js/jquery-1.9.1.min.js"></script>
+
 </head>
 <body>
-<div id='map' style='width: 400px; height: 300px;'></div>
+<input type="range"  id="range" value="500" min="10" max="1000" >
+<div id="box" style="width:500px;height:500px;background-color: #00b3ee">
+    你是春哥好人
+</div>
 <script>
-    'use strict'
-    // demo01
-   /* var a = 20;
-    function fn() {
-        console.log(this.a);
+    var fn=function foo() {}
+    function Person() {
+            return {};
     }
-    fn();*/
-    // demo02
-    /*var a = 20;
-    function fn() {
+    var a=new Person();
+    console.log(Function.prototype.__proto__)
+    console.log(Object.prototype);
+   console.log(fn.__proto__.hasOwnProperty('constructor'))
+    console.log(Function.prototype.__proto__.hasOwnProperty('constructor'))
+    console.log(a.__proto__.hasOwnProperty('constructor'));
+    console.log(typeof (Object))
+    console.log(Function);
+    console.log(typeof(Function))
+    console.log(Function instanceof Object )
+    console.log(Object instanceof Function )
+    var div=document.getElementById('adb')
+    var div1=document.createElement('div');
+    div1.innerHTML='我是div1'
+    div1=null;
+
+    function test() {
+        console.log(foo);
+        console.log(bar);
+
+        var foo = 'Hello';
+        console.log(foo);
+        var bar = function () {
+            return 'world';
+        }
+
         function foo() {
-            console.log(this.a);
-        }
-        foo();
-    }
-    fn();*/
-    // demo03
-    var b = 20;
-    var obj = {
-        b: 10,
-        c: this.b + 20,
-        fn: function () {
-            return this.b;
+            return 'hello';
         }
     }
 
-    console.log(obj.c);
-    console.log(obj.fn());
-//@param
+    test();
+    function toUpper(num) {
+        var nums = "零壹贰叁肆伍陆柒捌玖".split("");
+        var units = "分角圆拾佰仟万拾佰仟亿拾佰仟万拾佰仟".split("");
+        var result = "";
+        num = num.replace(/^[0]/,"");
+        num += "00";
+        var index = num.indexOf(".");
+        if(index > -1) {
+            var index = num.indexOf(".");
+            num = num.substring(0,index)+ num.substring(index+1,index+3);
+        }
+        var len = num.length;
+        for(var i = 0; i < len; i++) {
+            var c = num.charAt(i);
+            if(c >= 0 && c < 10) {
+                result += (nums[c] + units[len - i -1]);
+            }
+        }
+        result = result.replace(/零仟|零佰|零拾|零角|零分/g,"");
+        result = result.replace("零亿","亿");
+        result = result.replace("零万","万");
+        result = result.replace("零圆","圆");
+        result = result.replace("亿万","亿");
+        if(result.charAt(result.length-1) == '圆') {
+            result += "整";
+        }
+        return result;
+    }
+    console.log(toUpper("0125.1254"))
 
-   console.log(this.name)
-    alert(window.name);
 
 </script>
 </body>

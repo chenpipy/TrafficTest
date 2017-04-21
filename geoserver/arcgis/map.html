@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../js/arcgis_js_api/library/4.3/4.3/esri/css/main.css">
+    <script src="../js/arcgis_js_api/library/4.3/4.3/init.js"></script>
+    <style>
+        html, body, #viewDiv {
+            padding: 0;
+            margin: 0;
+            height: 100%;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+<div id="viewDiv"></div>
+<script>
+    require([
+        "esri/Map",
+        "esri/views/MapView",
+        "dojo/domReady!"
+    ],function (Map,MapView)
+    {
+        var map=new Map({
+            basemap:'streets'
+        })
+        var view=new MapView({
+            container:"viewDiv",
+            map:map,
+            zoom:4,
+            center:[15,65]
+        })
+    });
+</script>
+</body>
+</html>

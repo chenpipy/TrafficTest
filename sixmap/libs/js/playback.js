@@ -12,20 +12,46 @@ function OLMonitor(olMap) {
     var iCoords;
     var locationLayer;
     var ifeatures;
-
-    var sliderInput = document.getElementById('slider')
+    var speedInput=10;
+    var sliderInput = document.getElementById('slider');
     $('#slider').on('input propertychange', function () {
         var slider = sliderInput.value;
-        count = Math.round(slider / 1000 * (iCoords.length-1));
+        count = Math.round(slider / 1000 * (iCoords.length - 1));
         console.log(count);
         //将所有要素样式清除
         for (var index in ifeatures) {
             ifeatures[index].setStyle(null);
-        };
+        }
+        ;
 
         //设置当前车辆位置
         locationLayer.getSource().getFeatureById(count).setStyle(Monitor.vehicleStyle(vehicleImg, rotations[count]));
     })
+
+    //获取选择的速度值
+    $('#drop-speed').click(function (e) {
+        var targetId = e.target.id;
+        switch (targetId) {
+            case 'li-speed1':
+                speedInput = $('#li-speed1').data('speed') - 0;
+                $('#dropdownMenu2').html('1&nbspX'+'&nbsp'+'<span class="caret"></span>');
+                break;
+            case 'li-speed2':
+                speedInput = $('#li-speed2').data('speed') - 0;
+                $('#dropdownMenu2').html('2&nbspX'+'&nbsp'+'<span class="caret"></span>');
+                break;
+            case 'li-speed3':
+                speedInput = $('#li-speed3').data('speed') - 0;
+                $('#dropdownMenu2').html('3&nbspX'+'&nbsp'+'<span class="caret"></span>');
+                break;
+            case 'li-speed4':
+                speedInput = $('#li-speed4').data('speed') - 0;
+                $('#dropdownMenu2').html('4&nbspX'+'&nbsp'+'<span class="caret"></span>');
+                break;
+        }
+    });
+
+
     //设置车辆的样式
     Monitor.vehicleStyle = function (vehicleImg, rotation) {
         return new ol.style.Style({
@@ -46,7 +72,33 @@ function OLMonitor(olMap) {
         rotationRad = [].concat(rotations);
         var iMonitoring = {};
         //转为墨卡托投影坐标
-        iCoords = [].concat(olMap.transformLineCoord(Coords));
+        if (Coords) {
+            iCoords = [].concat(olMap.transformLineCoord(Coords));
+        }
+        //初始化overlay
+        var geoMarkerLabel = document.createElement('label');
+        geoMarkerLabel.id = 'geoMarkerLabel';
+        geoMarkerLabel.innerText = '车速:35km/h';
+        var geoMarker = document.createElement('div');
+        geoMarker.id = 'geoMarker';
+        geoMarker.appendChild(geoMarkerLabel);
+        var olViewportDiv=olMap.map.getViewport();
+        olViewportDiv.appendChild(geoMarker);
+
+        //在地图容器中创建Overlay，存储车辆标记
+        var iMarker = new ol.Overlay({
+            id: 'Monitoring',
+            element: geoMarker,
+            offset:[-10,-30],
+            positioning: 'top-right',
+            autoPan: false,
+            stopEvent: false,
+        });
+        iMarker.setPosition(iCoords[0]);
+        olMap.map.addOverlay(iMarker);
+        iMonitoring.marker = iMarker;
+
+
         //创建矢量图层，存储车辆轨迹
         var iLayer = new ol.layer.Vector({
             title: 'Trajectory',
@@ -91,15 +143,13 @@ function OLMonitor(olMap) {
     }
     //启动历史轨迹回放
     Monitor.startTracking = function (iMonitoring) {
-        var speedInput = document.getElementById('speed');
-        var speed = 1000 - speedInput.value;
+        /* var speedInput = document.getElementById('speed');*/
+        var speed = 1000 - speedInput;
         olMap.map.center = olMap.center;
-
-
         //设置定时器
         var timer = setInterval(function () {
             count++;
-            if (count >= iCoords.length) {
+            if (count >=iCoords.length) {
                 //将所有要素样式清除
                 for (var index in ifeatures) {
                     ifeatures[index].setStyle(null);
@@ -107,14 +157,13 @@ function OLMonitor(olMap) {
                 //车辆回到原点
                 iMonitoring.locationLayer.getSource().getFeatureById(0).setStyle(Monitor.vehicleStyle(vehicleImg, rotationRad[0]));
                 clearInterval(timer);
-              /*  $('slider').attr('value:1')*/
-
                 Monitor.animating = false;
                 count = 0;
                 $('#slider').val(1001).change();
-               /* $('#start-animation').val('开始')*/
+                /* $('#start-animation').val('开始')*/
                 $('#start-animation').css('background-image', 'url("../libs/olMap/imgs/start.png")')
                 $('#slider').val(1).change();
+                iMonitoring.marker.setPosition(iCoords[0]);
 
             } else {
                 //清除所有的样式
@@ -124,8 +173,9 @@ function OLMonitor(olMap) {
 
                 var ifeature = iMonitoring.locationLayer.getSource().getFeatureById(count);
                 ifeature.setStyle(Monitor.vehicleStyle(vehicleImg, rotationRad[count]));
-                //改变滑块的位置
-                $('#slider').val(Math.round(count/iCoords.length*1000)).change();
+                //改变滑块的位置,count(0-14) length(15)
+                $('#slider').val(Math.round((count+1) / iCoords.length * 1000)).change();
+                iMonitoring.marker.setPosition(iCoords[count]);
             }
         }, speed);
         iMonitoring.timer = timer;

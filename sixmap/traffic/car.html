@@ -52,20 +52,26 @@
         }
 
         .speedBar {
-            position: absolute;
-            left: 20%;
-            bottom: 10%;
+            position: relative;
+            top: 450px;
+            width: 390px;
+            height: 35px;
+            background: rgba(255, 255, 255, 0.78);
+            padding: 0px;
+
         }
+
         input[type="range"] {
-            -webkit-box-shadow: 0 1px 0 0px #f6fffe, 0 1px 0 #f6fffe inset, 0px 2px 10px 0px rgba(67, 111, 152, 0.93) inset, 1px 0px 2px rgba(209, 221, 243, 0.69) inset, 0 0px 1px rgba(0, 0, 0, 0.6) inset;
+            -webkit-box-shadow: 0 1px 0 0px rgba(209, 221, 243, 0.66), 0 1px 0 #d1ddf3 inset, 0px 2px 10px 0px rgba(209, 221, 243, 0.93) inset, 1px 0px 2px rgb(209, 221, 243) inset, 0 0px 1px rgba(0, 0, 0, 0.6) inset;
             margin-top: 5px;
-            background-color: rgba(204, 243, 255, 0);
-            border-radius: 15px;
-            width: 500px;
+            background-color: rgb(246, 255, 254);
+            border-radius: 5px;
+            width: 300px;
             -webkit-appearance: none;
-            height:5px;
-            outline:none;
+            height: 10px;
+            outline: none;
         }
+
         input[type="range"]::-webkit-slider-thumb {
             -webkit-appearance: none;
             cursor: default;
@@ -73,20 +79,39 @@
             height: 15px;
             width: 20px;
             transform: translateY(-4px);
-            background: none repeat scroll 0 0 #d1ddf3;
+            background: none repeat scroll 0 0 #316dff;
             border-radius: 5px;
             margin-top: 5px;
             -webkit-box-shadow: 0 -1px 1px #ccf3ff inset;
         }
-        #start-animation{
+
+        #start-animation {
             background-image: url("../libs/olMap/imgs/start.png");
             background-size: cover;
-            height:30px;
-            width:30px;
+            height: 30px;
+            width: 30px;
             background-color: transparent;
             border-radius: 15px;
             border: 1px solid #0E90D2;
             outline: none;
+            position: absolute;
+            float: left;
+            margin: 3px 0 0 0;
+        }
+
+        .slider-range {
+            position: absolute;
+            margin: 10px 0px 0px 34px;
+        }
+
+        /*调整按钮组的长度*/
+        .dropdown-menu {
+            min-width: 0px;
+        }
+
+        .drop-speed {
+            float: right;
+            margin: 3px 4px 0 0;
         }
 
     </style>
@@ -102,12 +127,28 @@
     <input type="checkbox" class="map-measuretool">
     <label>测距</label>
 </div>
-<div class="speedBar">
+<div class="speedBar clearfix container">
     <input type="button" id="start-animation" value="" class="btn btn-primary btn-sm">
-    <label for="speed" class="speed-value">
+    <!--<label for="speed" class="speed-value">
         <input id="speed" type="range" min="10" max="999" step="10" value="500" title="速度调节">
-    </label>
-    <input id="slider" type="range" min="1" max="1001" step="10" value="1" title="进度调调节">
+    </label>-->
+    <div class="slider-range">
+        <input id="slider" type="range" min="1" max="1001" step="10" value="1" title="进度调调节">
+    </div>
+    <div id="drop-speed" class=" drop-speed dropup">
+        <button class="btn btn-default dropdown-toggle btn-sm" type="button" id="dropdownMenu2" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+            1&nbspX
+            <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+            <li><a href="#" id="li-speed4" data-speed="990">4&nbspX</a></li>
+            <li><a href="#" id="li-speed3" data-speed="900">3&nbspX</a></li>
+            <li><a href="#" id="li-speed2" data-speed="500">2&nbspX</a></li>
+            <li><a href="#" id="li-speed1" data-speed="10">1&nbspX</a></li>
+        </ul>
+    </div>
+
 
 </div>
 <script type="text/javascript" src="../libs/workshop-resources/ol3/ol-debug.js"></script>
@@ -126,48 +167,48 @@
         [109.988405, 27.554461], [109.988994, 27.554742], [109.991110, 27.556210], [109.993082, 27.557657],
         [109.993778, 27.558069], [109.994725, 27.558443], [109.995978, 27.558728]
     ];
-    var rotations=[1.5*Math.PI,1*Math.PI,1.5*Math.PI,1*Math.PI,1.5*Math.PI,1.5*Math.PI,1.3*Math.PI,1.6*Math.PI,1.1*Math.PI,1.2*Math.PI,
-        0.5*Math.PI,1*Math.PI,1.5*Math.PI,1.6*Math.PI,1.5*Math.PI]
-/*
+    var rotations = [1.5 * Math.PI, 1 * Math.PI, 1.5 * Math.PI, 1 * Math.PI, 1.5 * Math.PI, 1.5 * Math.PI, 1.3 * Math.PI, 1.6 * Math.PI, 1.1 * Math.PI, 1.2 * Math.PI,
+        0.5 * Math.PI, 1 * Math.PI, 1.5 * Math.PI, 1.6 * Math.PI, 1.5 * Math.PI]
+    /*
+     //初始化车辆位置
+     var iMonitoring = olMap.initMonitoring(routeCoords[0], '湘A·00001', urlImgs);
+     $('#buttongroup').on('click', function (e) {
+     var target = e.target;
+     var id = target.id;
+     if (id == 'startMonitor') {
+     //监控车辆行驶轨迹
+     olMap.stopMonitoring(iMonitoring);
+     iMonitoring = olMap.initMonitoring(routeCoords[0], '湘A·00001', urlImgs);
+     olMap.startMonitoring(iMonitoring, routeCoords);
+     }
+     if (id == 'startTrack') {
+     olMap.stopMonitoring(iMonitoring);
+     iMonitoring = olMap.initMonitoring(routeCoords[0], '湘A·00001', urlImgs);
+     iMonitoring = olMap.startTracking(iMonitoring, routeCoords);
+     }
+     })
+     var startAnimation = function (iMonitoring) {
+     if (monitor.animating) {
+     monitor.animating = false;
+     //暂停车辆运行
+     clearInterval(iMonitoring.timer);
+     $('#start-animation').val('开始')
+     } else {
+     monitor.animating = true;
+     $('#start-animation').val('暂停')
+     iMonitoring = olMap.startTracking(iMonitoring, routeCoords);
+
+
+
+     }
+     }
+     $('#start-animation').on('click', function () {
+     startAnimation(iMonitoring)
+     });*/
+
     //初始化车辆位置
-    var iMonitoring = olMap.initMonitoring(routeCoords[0], '湘A·00001', urlImgs);
-    $('#buttongroup').on('click', function (e) {
-        var target = e.target;
-        var id = target.id;
-        if (id == 'startMonitor') {
-            //监控车辆行驶轨迹
-            olMap.stopMonitoring(iMonitoring);
-            iMonitoring = olMap.initMonitoring(routeCoords[0], '湘A·00001', urlImgs);
-            olMap.startMonitoring(iMonitoring, routeCoords);
-        }
-        if (id == 'startTrack') {
-            olMap.stopMonitoring(iMonitoring);
-            iMonitoring = olMap.initMonitoring(routeCoords[0], '湘A·00001', urlImgs);
-            iMonitoring = olMap.startTracking(iMonitoring, routeCoords);
-        }
-    })
-    var startAnimation = function (iMonitoring) {
-        if (monitor.animating) {
-            monitor.animating = false;
-            //暂停车辆运行
-            clearInterval(iMonitoring.timer);
-            $('#start-animation').val('开始')
-        } else {
-            monitor.animating = true;
-            $('#start-animation').val('暂停')
-            iMonitoring = olMap.startTracking(iMonitoring, routeCoords);
-
-
-
-        }
-    }
-    $('#start-animation').on('click', function () {
-        startAnimation(iMonitoring)
-    });*/
-
-    //初始化车辆位置
-    var monitor=new OLMonitor(olMap);
-    var iMonitoring =monitor.initMonitoring(routeCoords,urlImgs , rotations);
+    var monitor = new OLMonitor(olMap);
+    var iMonitoring = monitor.initMonitoring(routeCoords, urlImgs, rotations);
     var startAnimation = function (iMonitoring) {
         if (monitor.animating) {
             monitor.animating = false;
@@ -188,7 +229,6 @@
 
         startAnimation(iMonitoring)
     });
-
 
 
     //检测checked状态

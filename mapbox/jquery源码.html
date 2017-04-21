@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div>
+    <ul id="list"></ul>
+</div>
+<script>
+   var container=document.getElementById('list');
+   for (var i = 0; i < 3; i++) {
+       var ndItem=document.createElement('li');
+       ndItem.innerHTML=i+1;
+       container.appendChild(ndItem);
+       if (i==1) {
+           var ndSpan=document.createElement('sapn');
+           ndSpan.innerText='我是sapn标签';
+           ndItem.appendChild(ndSpan);
+       }
+       /*ndItem.addEventListener('click',function () {
+           alert(this.innerText);
+       })*/
+   }
+   container.addEventListener('click',function (e) {
+       var el = e.target
+       if (el.tagName=='LI') {
+           for (var i = this.childNodes.length-1; i >=0; i--) {
+               this.removeChild(this.childNodes[i])
+
+           }
+       }
+
+   })
+
+
+</script>
+</body>
+</html>
