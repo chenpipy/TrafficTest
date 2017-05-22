@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../bower_components/vue/dist/vue.js"></script>
+</head>
+
+<body>
+<div id="box">
+    正常显示的内容
+    <aaa></aaa>
+    <my-ccc>
+
+    </my-ccc>
+    <!--<input type="button" @click="a='aaa'" value="aaa组件">
+    <input type="button" @click="a='my-bbb'" value="bbb组件">
+    <component :is="a"></component>-->
+</div>
+<!-- <template id="bbb">
+       <h1 @click="change">标题1{{msg}}</h1>
+       <ul>
+          <li v-for="var in arr">
+              {{var }}
+          </li>
+       </ul>
+   </template>-->
+<template id="ccc">
+    <h2>我是父组件my-ccc</h2>
+    <div>显示的子组件的数据是:{{a}}</div>
+    <my-ddd @child-msg="get"></my-ddd>
+</template>
+<template id="ddd">
+    <h3>我是子组件my-ddd</h3>
+    <input type="button" value="send" @click="send">
+</template>
+<script>
+    /* var Aaa=Vue.extend({
+     template:'<h1>我是标题1{{msg}}</h1>',
+     data(){
+     return {
+     msg:'我是模版aaa中的信息'
+     }
+     }
+     });*/
+    //这种不能显示
+    /*var aaa=new Aaa();*/
+    //可以正常显示
+    /*   Vue.component('aaa',Aaa);*/
+
+    //组件的另一种编写方式
+   /* Vue.component('aaa', {
+        template: ' <strong>我是另一种组件的显示方式</strong>'
+    });*/
+    var vm = new Vue({
+        el: '#box',
+        data: {
+            a:'aaa'
+        },
+        /* //用复数
+         components:{
+         aaa:Aaa,
+         }*/
+        components: {
+           /* 'my-bbb':{
+                data(){
+                    return {
+                        msg:'welcome to vue',
+                        arr:['one','two','three']
+                    }
+                },
+                methods:{
+                    change(){
+                        this.msg='changeed'
+                    }
+                },
+                template:'#bbb'
+            },*/
+           'aaa':{
+               data(){
+                   return{
+                       msg:'我是父组件中的数据',
+                       data:'我是父组件中的data'
+                   }
+               },
+               template:'<strong>我是父组件</strong><bbb :mmm="msg" :nnn="data"></bbb>',
+               components:{
+                   'bbb':{
+                       props:{
+                         'mmm':String,
+                           'nnn':String
+                       },
+                       template:'<h2>我是{{mmm}}子组件{{nnn}}</h2>'
+                   }
+               }
+           },
+            'my-ccc':{
+               data(){
+                 return{
+                     a:'',
+                 }
+               },
+               template:'#ccc',
+                methods:{
+                   get(msg){
+                       this.a=msg;
+
+                   }
+                },
+                components:{
+                   'my-ddd':{
+                       template:'#ddd',
+                       data(){
+                           return{
+                               message:'我是子组件my-ddd中的数据',
+                           }
+                       },
+                       methods:{
+                           send(){
+                               this.$emit(
+                                   'child-msg',this.message
+                               )
+                           }
+                       },
+                   },
+
+                }
+
+            }
+        }
+    });
+</script>
+</body>
+</html>

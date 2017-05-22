@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/CSS">
+
+        input[type="range"] {
+            -webkit-box-shadow: 0 1px 0 0px #d1ddf3, 0 1px 0 #d1ddf3 inset, 0px 2px 10px 0px rgba(209, 221, 243, 0.79) inset, 1px 0px 2px rgba(209, 221, 243, 0.69) inset, 0 0px 1px rgba(0, 0, 0, 0.6) inset;
+            margin-top: 5px;
+            background-color: rgba(204, 243, 255, 0);
+            border-radius: 15px;
+            width: 500px;
+            -webkit-appearance: none;
+            height:10px;
+            outline:none;
+        }
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            cursor: default;
+            top: -5px;
+            height: 15px;
+            width: 20px;
+            transform: translateY(-4px);
+            background: none repeat scroll 0 0 #d1ddf3;
+            border-radius: 5px;
+            margin-top: 5px;
+            -webkit-box-shadow: 0 -1px 1px #ccf3ff inset;
+        }
+    </style>
+</head>
+<body>
+<input id="slider" type="range" min="1" max="1001" step="10" value="1" title="进度调调节">
+
+</body>
+</html>

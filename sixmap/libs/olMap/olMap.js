@@ -926,5 +926,8 @@ OLMap = function (targetDiv) {
     Map.addOverlay=function (overLayer) {
         Map.map.addOverlay(overLayer);
     }
+    Map.setViewCenter=function(coords){
+        Map.view.setCenter(ol.proj.transform(coords,'ESPG:4326',Map.projection));
+    }
     return Map;
 };

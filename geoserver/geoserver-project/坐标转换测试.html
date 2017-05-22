@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+   function lnglatToTile(longitude, latitude, level) {
+        let tileX = this._lngToTileX(longitude, level);
+        let tileY = this._latToTileY(latitude, level)
+
+        return {
+            tileX,
+            tileY
+        };
+    }
+    console.log(lnglatToTile(120,40,3));
+</script>
+
+</body>
+</html>

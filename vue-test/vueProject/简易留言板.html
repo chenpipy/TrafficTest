@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../bower_components/vue/dist/vue.js"></script>
+    <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css">
+    <script src="../bower_components/jquery/dist/jquery.js"></script>
+    <script src="../bower_components/bootstrap/dist/js/bootstrap.js"></script>
+
+</head>
+<body>
+<div class="container" id="box">
+    <div class="form-horizontal">
+        <h1 class="page-header">用户表单注册</h1>
+        <div class="form-group">
+            <label for="userName" class="col-sm-2 control-label">用户名：</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" placeholder="userName" v-model="userName">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">年龄：</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" placeholder="passWord" v-model="age">
+            </div>
+        </div>
+        <div class="form-group">
+            <button class="btn btn-primary" @click="add()">添加</button>
+            <button type="reset" class="btn btn-danger">重置</button>
+        </div>
+
+    </div>
+    <hr>
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover">
+            <caption class="h3 text-info"> 用户信息表</caption>
+            <tr class="text-danger">
+                <th class="text-center">序号</th>
+                <th class="text-center">名字</th>
+                <th class="text-center">年龄</th>
+                <th class="text-center">操作</th>
+            </tr>
+            <tr class="text-center" v-for="item in myData">
+                <td>{{$index+1}}</td>
+                <td>{{item.userName}}</td>
+                <td>{{item.age}}</td>
+                <td>
+                    <!--
+                                            只有在这里才能拿到index信息，为了将当前的index信息传给模态框的确认删除方法
+                    -->
+                    <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#layer"
+                            @click="nowIndex=$index">删除
+                    </button>
+                </td>
+
+            </tr>
+            <tr v-show="myData.length!=0">
+                <td colspan="4" class="text-right">
+                    <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#layer" @click="nowIndex=-2">
+                        删除全部
+                    </button>
+                </td>
+            </tr>
+            <tr v-show="myData.length==0">
+                <td colspan="4" class="text-center text-muted">
+                    <p>暂无数据...</p>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div role="dialog" class="modal fade" id="layer">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span>&times;</span>
+                    </button>
+                    <h4 class="modal-title">确定删除吗</h4>
+                </div>
+                <div class="modal-body text-right">
+                    <button data-dismiss="modal" class="btn btn-sucess btn-sm">取消</button>
+                    <button data-dismiss="modal" class="btn btn-warning btn-sm" @click="deleteMsg(nowIndex)">确认</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--//模态框，弹出框-->
+
+</div>
+
+
+</body>
+<script>
+    window.onload = function () {
+        var vm = new Vue({
+            el: '#box',
+            data: {
+                myData: [],
+                useName: '',
+                age: '',
+                nowIndex: -1,
+            },
+            methods: {
+                add: function () {
+                    this.myData.push({userName: this.userName, age: this.age});
+                    //这个赋值是为了初始化input中的值
+                    this.userName = '';
+                    this.age = ''
+                },
+                deleteMsg: function (index) {
+                    if (index == -2) {
+                        this.myData = [];
+                    } else {
+                        this.myData.splice(index, 1)
+                    }
+                }
+            },
+        });
+    }
+</script>
+</html>

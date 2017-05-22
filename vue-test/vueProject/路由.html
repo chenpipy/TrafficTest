@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../bower_components/vue/dist/vue.js"></script>
+    <script src="../bower_components/vue-router/dist/vue-router.js"></script>
+</head>
+<body>
+<div>
+    欢迎来到正常显示的内容vue3
+</div>
+<div id="box">
+    <ul>
+        <li>
+            <a v-link="{path:'/home'}">主页</a>
+        </li>
+        <li>
+            <a v-link="{path:'/news'}">新闻</a>
+        </li>
+    </ul>
+    <div>
+        <router-view></router-view>
+    </div>
+</div>
+
+<template id="home">
+    <h3>我是主页的内容</h3>
+    <div>
+        <ul>
+            <li><a v-link="{path:'/home/login'}">登陆</a></li>
+            <li><a v-link="{path:'/home/reg'}">注册</a></li>
+        </ul>
+    </div>
+    <div>
+        <router-view></router-view>
+    </div>
+</template>
+
+<template id="news">
+    <h3>我是新闻的内容</h3>
+    <div>
+        <a v-link="{path:'/news/detail/001'}">新闻01</a>
+        <a href="" v-link="{path:'/news/detail/002'}">新闻02</a>
+    </div>
+    <div>
+        <router-view></router-view>
+    </div>
+</template>
+<template id="detail">
+    {{$route.params|json}}
+    <br>
+    {{$route.path}}
+    <br>
+    {{$route.query | json}}
+</template>
+<script>
+    var App = Vue.extend();
+    var Home = Vue.extend({
+        template: '#home'
+    });
+    var News = Vue.extend({
+        template: '#news'
+    });
+    var Detail = Vue.extend({
+        template: '#detail'
+    });
+    var router = new VueRouter();
+    router.map({
+        '/home': {
+            component: Home,
+            subRoutes: {
+                '/login': {
+                    component: {
+                        template: '<strong>我是登陆信息</strong>'
+                    }
+                },
+                '/reg': {
+                    component: {
+                        template: '<strong>我是注册信息</strong>'
+                    }
+                }
+            }
+        },
+        '/news': {
+            component: News,
+            subRoutes: {
+                '/detail/:id': {
+                    component: Detail
+                }
+            }
+        }
+    });
+
+    router.start(App, '#box');
+    router.redirect({
+        '/': '/home'
+    });
+</script>
+</body>
+</html>

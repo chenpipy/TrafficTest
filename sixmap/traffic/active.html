@@ -11,9 +11,96 @@
     <script type="text/javascript" src="../libs/bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../libs/olMap/olMap.js"></script>
     <title>我的项目</title>
+    <style>
+        body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td,img {padding:0;margin:0;}
+        #search-container{
+    position:absolute;
+            top:8%;
+            left:68%;
+           /* box-shadow:0 2px 4px #ccc;*/
+        }
+        #search-box{
+            position:absolute;
+            border: none;
+            width: 255px;
+            height: 35px;
+            border-radius: 2px;
+            background-color: transparent;
+            padding: 5px 3px;
+            margin: 0px;
+           /* background-color: #31b0d5;*/
+        }
+        #search-box input{
+            z-index: 1;
+            position:absolute;
+            height:28px;
+            line-height: 26px;
+            width: 210px;
+            border:none;
+            border-radius: 2px;
+            -moz-box-shadow:2px 2px 10px #83a5ff;
+            -webkit-box-shadow:2px 2px 10px #83a5ff;
+            box-shadow:2px 2px 10px #83a5ff;
+            padding: 1px 5px;
+            margin: 0.6px 0 0 0 ;
+        }
+        #search-box input:focus{
+            outline:none;
+        }
+        #search-button{
+            border:none;
+            z-index: 999;
+            border-radius: 3px;
+            float:right;
+            margin:0px 0px 2px 0px;
+            height: 29px;
+            width: 40px;
+            /*background:url("../libs/olMap/imgs/search.png") no-repeat ;*/
+            background-image: url("../libs/olMap/imgs/search.png");
+            background-size:cover;
+        }
+        #search-list{
+            position:absolute;
+            margin:25px 0px 0px;
+            width: 210px;
+        }
+       #search-list ol{
+
+           border:none;
+
+        }
+       /* #search-list li{
+            padding:4px;
+            border:none;
+        }*/
+        .item {
+            list-style:none;
+            position:relative;
+            top: 15px;
+            right:40px;
+           /* width: 210px;*/
+            padding: 3px 5px;
+            margin:0px;
+            cursor: pointer;
+            background-color: #ffffff;
+            list-style-position:outside;
+        }
+        .addbg {
+            background: #b7bc9d;
+        }
+
+    </style>
 </head>
 <body>
     <div id="map"></div>
+    <div id="search-container">
+        <div id="search-box">
+            <input id="kw"  onKeyup="getContent(this);" /> <button id="search-button" data-title="搜索" onclick="document.getElementsByClassName('addbg').onclick"></button>
+        </div>
+        <div id="search-list">
+            <ol id="append"></ol>
+        </div>
+    </div>
     <div id="lineChart" class="ivd-lineChart">
         <div class="form-inline pull-left">
             <div class="from-group">
@@ -46,6 +133,7 @@
         var colors=new Array();
         var urlData;
         var urlImgs;
+        var index;
         function loadMap(){
             initColor(colors);
             olMap=new OLMap(document.getElementById('map'));
@@ -149,7 +237,114 @@
         obj.empty();
             obj.append(tagHtml);
         }
-        loadMap();
+        $(function(){
+            loadMap();
+            $(document).keydown(function(e) {
+                e = e || window.event;
+                var keycode = e.which ? e.which : e.keyCode;
+                if (keycode == 38) {
+                    if (jQuery.trim($("#append").html()) == "") {
+                        return;
+                    }
+                    movePrev();
+                } else if (keycode == 40) {
+                    if (jQuery.trim($("#append").html()) == "") {
+                        return;
+                    }
+                    $("#kw").blur();
+                    if ($(".item").hasClass("addbg")) {
+                        moveNext();
+                    } else {
+                        //addClass() 方法向被选元素添加一个或多个类名
+                        $(".item").removeClass('addbg').eq(0).addClass('addbg');
+                    }
+                } else if (keycode == 13) {
+                    dojob();
+                }
+            });
 
+        })
+
+        var movePrev = function() {
+            $("#kw").blur();
+            //prevAll() 获得当前匹配元素集合中每个元素的前面的同胞元素，使用选择器进行筛选是可选的。
+            var index = $(".addbg").prevAll().length;
+            if (index == 0) {
+                $(".item").removeClass('addbg').eq($(".item").length - 1).addClass('addbg');
+            } else {
+                //:eq() 选择器选取带有指定 index 值的元素
+                $(".item").removeClass('addbg').eq(index - 1).addClass('addbg');
+            }
+        }
+        var moveNext = function() {
+            var index = $(".addbg").prevAll().length;
+            //item元素的个数
+            if (index == $(".item").length - 1) {
+                $(".item").removeClass('addbg').eq(0).addClass('addbg');
+            } else {
+                $(".item").removeClass('addbg').eq(index + 1).addClass('addbg');
+            }
+        }
+        var dojob = function() {
+            $("#kw").blur();
+            var value = $(".addbg").text();
+            $("#kw").val(value);
+            $("#append").hide().html("");
+        }
+        function getContent(obj) {
+            $.get('../Testlibs/gis_tollgate.json',function (data){
+                var kw = jQuery.trim($(obj).val());
+                if (kw == "") {
+                    $("#append").hide().html("");
+                    return false;
+                }
+                var html = "";
+                for (var i=0;i<data.length;i++) {
+                    if (data[i].tollgate_name.indexOf(kw)>=0) {
+                        //onmouseenter 事件在鼠标指针移动到元素上时触发
+                        html = html + "<li class='item' onmouseenter='getFocus(this)' onClick='getCon(this);'value='"+i+"'>" + data[i].tollgate_name +"(卡口)"+ "</li>"
+                    }
+                }
+                if (html != "") {
+                    $("#append").show().html(html);
+                } else {
+                    $("#append").hide().html("");
+                }
+
+            })
+            /*for (var i = 0; i < Tesedata.length; i++)  {
+             if (Tesedata[i].indexOf(kw) >= 0) {
+             //onmouseenter 事件在鼠标指针移动到元素上时触发
+             html = html + "<div class='item' onmouseenter='getFocus(this)' onClick='getCon(this);'>" + data[i] + "</div>"
+             }
+             }*/
+
+        }
+        function getFocus(obj) {
+            $(".item").removeClass("addbg");
+            $(obj).addClass("addbg");
+        }
+        function getCon(obj) {
+            var value = $(obj).text();
+            $("#kw").val(value);
+            $("#append").hide().html("");
+            index=$(obj).val();
+            showData(index)
+
+        }
+        function showData(index){
+            $.get('../Testlibs/gis_tollgate.json',function (data){
+                for (var i=0;i<data.length;i++) {
+                    if (i==index) {
+                        var lon=data[i].longitude;
+                        var lai=data[i].laititude;
+                        olMap.view.setZoom(15);
+                        console.log(lon,lai)
+                        olMap.setViewCenter([lon,lai])
+
+                    }
+                }
+            })
+        }
     </script>
 </html>

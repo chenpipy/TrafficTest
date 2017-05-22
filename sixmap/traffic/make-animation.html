@@ -95,7 +95,7 @@
         var styles = {
             'route': [new ol.style.Style({
                 stroke: new ol.style.Stroke({
-                    width: 6, color: [237, 212, 0, 0.8]
+                    width: 6, color: [0, 255, 255, 0.8]
                 })
             })],
             'icon': [new ol.style.Style({
@@ -130,6 +130,7 @@
                 if (animating && feature.get('type') === 'geoMarker') {
                     return null;
                 }
+                console.log(feature.get('name'));
                 return styles[feature.get('type')];
             }
         });

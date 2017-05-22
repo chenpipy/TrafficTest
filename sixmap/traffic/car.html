@@ -5,13 +5,14 @@
     <title>Title</title>
     <link type="text/css" rel="stylesheet" href="../libs/workshop-resources/ol3/ol.css">
     <link type="text/css" rel="stylesheet" href="../libs/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../libs/bower_components/seiyria-bootstrap-slider/dist/css/bootstrap-slider.min.css">
     <link type="text/css" rel="stylesheet" href="../libs/olMap/olMap.css">
 
-    <script type="text/javascript" src="../libs/workshop-resources/ol3/ol.js"></script>
-    <script src="https://openlayers.org/en/v3.20.1/build/ol.js"></script>
+    <!--<script src="https://openlayers.org/en/v3.20.1/build/ol.js"></script>-->
     <script type="text/javascript" src="../libs/olMap/jquery-1.9.1.min.js"></script>
     <script type="text/javascript" src="../libs/bootstrap/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="../libs/olMap/olMap.js"></script>
+    <script src="../libs/bower_components/seiyria-bootstrap-slider/dist/bootstrap-slider.js"></script>
+
     <style>
         .tooltip {
             position: relative;
@@ -22,15 +23,18 @@
             opacity: 0.7;
             white-space: nowrap;
         }
+
         .tooltip-measure {
             opacity: 1;
             font-weight: bold;
         }
+
         .tooltip-static {
             background-color: #ffcc33;
             color: black;
             border: 1px solid white;
         }
+
         .tooltip-measure:before,
         .tooltip-static:before {
             border-top: 6px solid rgba(0, 0, 0, 0.5);
@@ -42,9 +46,76 @@
             margin-left: -7px;
             left: 50%;
         }
+
         .tooltip-static:before {
             border-top-color: #ffcc33;
-        }    </style>
+        }
+
+        .speedBar {
+            position: relative;
+            top: 450px;
+            width: 390px;
+            height: 35px;
+            background: rgba(255, 255, 255, 0.78);
+            padding: 0px;
+
+        }
+
+        input[type="range"] {
+            -webkit-box-shadow: 0 1px 0 0px rgba(209, 221, 243, 0.66), 0 1px 0 #d1ddf3 inset, 0px 2px 10px 0px rgba(209, 221, 243, 0.93) inset, 1px 0px 2px rgb(209, 221, 243) inset, 0 0px 1px rgba(0, 0, 0, 0.6) inset;
+            margin-top: 5px;
+            background-color: rgb(246, 255, 254);
+            border-radius: 5px;
+            width: 300px;
+            -webkit-appearance: none;
+            height: 10px;
+            outline: none;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            cursor: default;
+            top: -5px;
+            height: 15px;
+            width: 20px;
+            transform: translateY(-4px);
+            background: none repeat scroll 0 0 #316dff;
+            border-radius: 5px;
+            margin-top: 5px;
+            -webkit-box-shadow: 0 -1px 1px #ccf3ff inset;
+        }
+
+        #start-animation {
+            background-image: url("../libs/olMap/imgs/start.png");
+            background-size: cover;
+            height: 30px;
+            width: 30px;
+            background-color: transparent;
+            border-radius: 15px;
+            border: 1px solid #0E90D2;
+            outline: none;
+            position: absolute;
+            float: left;
+            margin: 3px 0 0 0;
+        }
+
+        .slider-range {
+            position: absolute;
+            margin: 10px 0px 0px 34px;
+        }
+
+        /*调整按钮组的长度*/
+        .dropdown-menu {
+            min-width: 0px;
+        }
+
+        .drop-speed {
+            float: right;
+            margin: 3px 4px 0 0;
+        }
+
+    </style>
+
 </head>
 <body>
 <div id="map"></div>
@@ -53,43 +124,111 @@
     <input type="button" id="startTrack" value="历史轨迹">
 </div>
 <div id="map-measure" style="position: absolute;top: 100px;right: 100px">
-    <input type="checkbox" class="map-measuretool" >
+    <input type="checkbox" class="map-measuretool">
     <label>测距</label>
 </div>
+<div class="speedBar clearfix container">
+    <input type="button" id="start-animation" value="" class="btn btn-primary btn-sm">
+    <!--<label for="speed" class="speed-value">
+        <input id="speed" type="range" min="10" max="999" step="10" value="500" title="速度调节">
+    </label>-->
+    <div class="slider-range">
+        <input id="slider" type="range" min="1" max="1001" step="10" value="1" title="进度调调节">
+    </div>
+    <div id="drop-speed" class=" drop-speed dropup">
+        <button class="btn btn-default dropdown-toggle btn-sm" type="button" id="dropdownMenu2" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+            1&nbspX
+            <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+            <li><a href="#" id="li-speed4" data-speed="990">4&nbspX</a></li>
+            <li><a href="#" id="li-speed3" data-speed="900">3&nbspX</a></li>
+            <li><a href="#" id="li-speed2" data-speed="500">2&nbspX</a></li>
+            <li><a href="#" id="li-speed1" data-speed="10">1&nbspX</a></li>
+        </ul>
+    </div>
+
+
+</div>
+<script type="text/javascript" src="../libs/workshop-resources/ol3/ol-debug.js"></script>
+<script type="text/javascript" src="../libs/olMap/olMap-debug.js"></script>
+<script src="../libs/js/playback.js"></script>
 </body>
 <script>
     var olMap = new OLMap(document.getElementById('map'));
     olMap.initialize();
-    olMap.setstylePolyLineCommon(2,'#ffcc33',999);
+    olMap.setstylePolyLineCommon(2, '#ffcc33', 999);
 
     var urlImgs = '../libs/olMap/imgs/car.png';
-
     var routeCoords = [
         [109.973127, 27.555605], [109.974249, 27.555266], [109.975156, 27.555109], [109.976847, 27.554990],
         [109.978988, 27.554741], [109.983139, 27.553867], [109.986163, 27.554034], [109.987687, 27.554227],
         [109.988405, 27.554461], [109.988994, 27.554742], [109.991110, 27.556210], [109.993082, 27.557657],
         [109.993778, 27.558069], [109.994725, 27.558443], [109.995978, 27.558728]
     ];
+    var rotations = [1.5 * Math.PI, 1 * Math.PI, 1.5 * Math.PI, 1 * Math.PI, 1.5 * Math.PI, 1.5 * Math.PI, 1.3 * Math.PI, 1.6 * Math.PI, 1.1 * Math.PI, 1.2 * Math.PI,
+        0.5 * Math.PI, 1 * Math.PI, 1.5 * Math.PI, 1.6 * Math.PI, 1.5 * Math.PI]
+    /*
+     //初始化车辆位置
+     var iMonitoring = olMap.initMonitoring(routeCoords[0], '湘A·00001', urlImgs);
+     $('#buttongroup').on('click', function (e) {
+     var target = e.target;
+     var id = target.id;
+     if (id == 'startMonitor') {
+     //监控车辆行驶轨迹
+     olMap.stopMonitoring(iMonitoring);
+     iMonitoring = olMap.initMonitoring(routeCoords[0], '湘A·00001', urlImgs);
+     olMap.startMonitoring(iMonitoring, routeCoords);
+     }
+     if (id == 'startTrack') {
+     olMap.stopMonitoring(iMonitoring);
+     iMonitoring = olMap.initMonitoring(routeCoords[0], '湘A·00001', urlImgs);
+     iMonitoring = olMap.startTracking(iMonitoring, routeCoords);
+     }
+     })
+     var startAnimation = function (iMonitoring) {
+     if (monitor.animating) {
+     monitor.animating = false;
+     //暂停车辆运行
+     clearInterval(iMonitoring.timer);
+     $('#start-animation').val('开始')
+     } else {
+     monitor.animating = true;
+     $('#start-animation').val('暂停')
+     iMonitoring = olMap.startTracking(iMonitoring, routeCoords);
+
+
+
+     }
+     }
+     $('#start-animation').on('click', function () {
+     startAnimation(iMonitoring)
+     });*/
 
     //初始化车辆位置
-    var iMonitoring = olMap.initMonitoring(routeCoords[0], '湘A·00001', urlImgs);
+    var monitor = new OLMonitor(olMap);
+    var iMonitoring = monitor.initMonitoring(routeCoords, urlImgs, rotations);
+    var startAnimation = function (iMonitoring) {
+        if (monitor.animating) {
+            monitor.animating = false;
+            //暂停车辆运行
+            clearInterval(iMonitoring.timer);
+            /*$('#start-animation').val('开始')*/
+            $('#start-animation').css('background-image', 'url("../libs/olMap/imgs/start.png")')
+        } else {
+            monitor.animating = true;
+            /*$('#start-animation').val('暂停')*/
+            $('#start-animation').css('background-image', 'url("../libs/olMap/imgs/pause.png")')
 
-    $('#buttongroup').on('click', function (e) {
-        var target = e.target;
-        var id = target.id;
-        if (id == 'startMonitor') {
-            //监控车辆行驶轨迹
-            olMap.stopMonitoring(iMonitoring);
-            iMonitoring = olMap.initMonitoring(routeCoords[0], '湘A·00001', urlImgs);
-            olMap.startMonitoring(iMonitoring, routeCoords);
-        }
-        if (id == 'startTrack') {
-            olMap.stopMonitoring(iMonitoring);
-            iMonitoring = olMap.initMonitoring(routeCoords[0], '湘A·00001', urlImgs);
-            iMonitoring = olMap.startTrack(iMonitoring, routeCoords);
-        }
-    })
+            iMonitoring = monitor.startTracking(iMonitoring);
 
+        }
+    }
+    $('#start-animation').on('click', function () {
+
+        startAnimation(iMonitoring)
+    });
 
 
     //检测checked状态
@@ -98,24 +237,24 @@
     var measureTooltipElement;
     var measureTooltip;
     //测距交互
-    var source=new ol.source.Vector();
-    var vectorLayer=new ol.layer.Vector({
-        source:source,
-        style:new ol.style.Style({
-        fill: new ol.style.Fill({
-            color: 'rgba(255, 255, 255, 0.2)'
-        }),
-        stroke: new ol.style.Stroke({
-            color: '#ffcc33',
-            width: 2
-        }),
-        image: new ol.style.Circle({
-            radius: 7,
+    var source = new ol.source.Vector();
+    var vectorLayer = new ol.layer.Vector({
+        source: source,
+        style: new ol.style.Style({
             fill: new ol.style.Fill({
-                color: '#ffcc33'
+                color: 'rgba(255, 255, 255, 0.2)'
+            }),
+            stroke: new ol.style.Stroke({
+                color: '#ffcc33',
+                width: 2
+            }),
+            image: new ol.style.Circle({
+                radius: 7,
+                fill: new ol.style.Fill({
+                    color: '#ffcc33'
+                })
             })
         })
-    })
     });
     vectorLayer.setMap(olMap.map);
     //source必须和vectorLayer的source保持一致，draw和图层是保持关联的的关系，纽带是source，在画图的过程中，显示的是Draw中的style，
@@ -156,47 +295,47 @@
                 var geom = evt.target;
                 var output;
                 if (geom instanceof ol.geom.LineString) {
-                    output=formatLength(geom)
-                    tooltipCoord=geom.getLastCoordinate();
+                    output = formatLength(geom)
+                    tooltipCoord = geom.getLastCoordinate();
                 }
-                measureTooltipElement.innerHTML=output;
+                measureTooltipElement.innerHTML = output;
                 measureTooltip.setPosition(tooltipCoord);
             })
-        },this);
-        draw.on('drawend',function () {
-            measureTooltipElement.className='tooltip tooltip-static';
-            measureTooltip.setOffset([0,-7]);
-             sketch=null;
-            measureTooltipElement=null;
+        }, this);
+        draw.on('drawend', function () {
+            measureTooltipElement.className = 'tooltip tooltip-static';
+            measureTooltip.setOffset([0, -7]);
+            sketch = null;
+            measureTooltipElement = null;
             createMeasureTooltip();
             ol.Observable.unByKey(listener);
-        },this)
+        }, this)
     }
     //给定线，测量距离
-    var formatLength=function(line){
+    var formatLength = function (line) {
         var length;
         var output;
         length = Math.round(line.getLength() * 100) / 100;
         if (length > 100) {
             output = (Math.round(length / 1000 * 100) / 100) +
-                    ' ' + 'km';
+                ' ' + 'km';
         } else {
             output = (Math.round(length * 100) / 100) +
-                    ' ' + 'm';
+                ' ' + 'm';
         }
         return output;
     }
     //创建实时测量距离tooltip
-    function createMeasureTooltip(){
+    function createMeasureTooltip() {
         if (measureTooltipElement) {
-        measureTooltipElement.parentNode.removeChild(measureTooltipElement);
+            measureTooltipElement.parentNode.removeChild(measureTooltipElement);
         }
-        measureTooltipElement=document.createElement('div');
-        measureTooltipElement.className='tooltip tooltip-measure';
-        measureTooltip=new ol.Overlay({
-            element:measureTooltipElement,
-            offset:[0,-15],
-            positioning:'bottom-center'
+        measureTooltipElement = document.createElement('div');
+        measureTooltipElement.className = 'tooltip tooltip-measure';
+        measureTooltip = new ol.Overlay({
+            element: measureTooltipElement,
+            offset: [0, -15],
+            positioning: 'bottom-center'
         });
         olMap.map.addOverlay(measureTooltip);
     }
@@ -211,7 +350,6 @@
         }
 
     });
-
 
 
     //iMonitoring = olMap.startMonitoring(iMonitoring, routeCoords);

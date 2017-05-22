@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../js/ol.css">
+    <script src="../js/jquery-1.9.1.min.js"></script>
+    <script src="../js/ol-debug.js"></script>
+</head>
+<body>
+<input type="button" value="查询" onclick="queryWfs();"/>
+<input type="checkbox" value="select" id="select">选择
+<input type="checkbox" value="modify" id="modify">编辑
+<input type="button" value="保存" id="save" onclick="onSave();">
+<div id="map" style="width: 100%;height: 100%;"></div>
+<script>
+    var wfsVectorLayer = null;
+    var modifyedFeatures = null;
+
+    var map = new ol.Map({
+        target: 'map',
+        layers: [new ol.layer.Tile({
+            source: new ol.source.OSM()
+        })],
+        view: new ol.View({
+            center: [-73.99710639567148, 40.742270050255556],
+            maxZoom: 19,
+            zoom: 13,
+            projection: 'EPSG:4326'
+        })
+    });
+    //查询矢量数据
+    function queryWfs() {
+        if (wfsVectorLayer) {
+            map.removeLayer(wfsVectorLayer);
+        }
+        wfsVectorLayer = new ol.layer.Vector({
+            source: new ol.source.Vector({
+                format: new ol.format.GeoJSON({
+                    geometryNmae: 'the_geom'
+                }),
+                url: 'http://localhost:8080/geoserver/wfs?service=wfs&version=1.1.0&request=GetFeature&typeNames=nyc_roads:nyc_roads&outputFormat=application/json&srsname=EPSG:4326',
+                style: ol.style.Style({
+                    stroke: new ol.style.Stroke({
+                        color: '#6eedff',
+                        lineDash: [1, 5],
+                        width: 5
+                    })
+                })
+            })
+        })
+        map.addLayer(wfsVectorLayer);
+    }
+
+    var selectInteraction = new ol.interaction.Select({
+        style: ol.style.Style({
+            stroke: new ol.style.Stroke({
+                color: '#ff201c',
+                width: 6,
+            })
+        })
+    });
+    var modifyInteraction = new ol.interaction.Modify({
+        style: ol.style.Style({
+            stroke: ol.style.Stroke({
+                width: 8,
+                color: '#0f28ff'
+            })
+        }),
+        features: selectInteraction.getFeatures(),
+    });
+    modifyInteraction.on('modifyend',function (e) {
+        modifyedFeatures=e.features;
+    })
+
+
+    //选择矢量数据
+    $('#select').change(function () {
+        if (this.checked) {
+            map.removeInteraction(selectInteraction);
+            map.addInteraction(selectInteraction);
+        } else {
+            map.removeInteraction(selectInteraction);
+            /* $('#modify').prop('checked',false);*/
+            $('#modify').prop('checked',false)
+            map.removeInteraction(modifyInteraction);
+            modifyedFeatures = null;
+        }
+    });
+    $('#modify').change(function () {
+        if (this.checked) {
+            $('#select').prop('checked',true);
+            map.removeInteraction(modifyInteraction);
+            map.addInteraction(modifyInteraction);
+            map.removeInteraction(selectInteraction);
+            map.addInteraction(selectInteraction);
+        }else {
+            //有更改
+            map.removeInteraction(modifyInteraction);
+            modifyedFeatures=null;
+        }
+            });
+
+    //保存编辑的内容
+    function onSave() {
+        if (modifyedFeatures&&modifyedFeatures.getLength()>0) {
+            var modifyedFeature=modifyedFeatures.item(0).clone();
+            modifyedFeature.setId(modifyedFeatures.item(0).getId());
+            modifyedFeature.getGeometry().applyTransform(function (flatCoordinates,flatCoordinates2,stride) {
+                for (var i = 0; i < flatCoordinates.length; i+=stride) {
+                    var y = flatCoordinates[i];
+                    var x=flatCoordinates[i+1];
+                    flatCoordinates[i]=x;
+                    flatCoordinates[i+1]=y;
+                }
+            })
+        modifyWfs([modifyedFeature]);
+        }
+    }
+    //将修改提交到服务器
+        function modifyWfs(features) {
+        var WFSTSerializer=new ol.format.WFS();
+        var featObject=WFSTSerializer.writeTransaction(null,features,null,{
+            featureType:'nyc_roads',
+            featureNS:'http://geoserver.org/nyc_roads',
+            srsName:'EPSG:4326'
+        })
+        var serializer=new XMLSerializer();
+        var featString=serializer.serializeToString(featObject);
+        var request=new XMLHttpRequest();
+        request.open('POST','http://localhost:8080/geoserver/wfs?service=wfs');
+        request.setRequestHeader('Content-Type','text/xml');
+            request.send(featString);
+            alert('保存成功');
+        }
+</script>
+</body>
+</html>

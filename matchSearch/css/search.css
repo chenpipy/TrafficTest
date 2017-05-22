@@ -1,0 +1,20 @@
+*{
+    list-style: none;
+    padding:0;
+    margin:0;
+}
+div{
+    text-align: center;
+    padding-top:50px;
+    background: #316dff;
+}
+ul{
+    padding-top:20px;
+    width:40%;
+    margin:0 50% 0 35%;
+}
+li{
+    padding:3px;
+    border:1px solid silver;
+    box-shadow: 1px 1px;
+}

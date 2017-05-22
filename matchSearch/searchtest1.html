@@ -68,7 +68,7 @@
     <div id="content">
         <div class="first">
 
-            <input id="kw" onKeyup="getContent(this);" /><button id="search-button" data-title="搜索"></button>
+            <input id="kw" onKeyup="getContent(this);" /><button id="search-button" data-title="搜索">搜索</button>
         </div>
         <div>
             <ol id="append"></ol>
@@ -138,7 +138,7 @@
             for (var i=0;i<data.length;i++) {
                 if (data[i].tollgate_name.indexOf(kw)>=0) {
                     //onmouseenter 事件在鼠标指针移动到元素上时触发
-                    html = html + "<li class='item' onmouseenter='getFocus(this)' onClick='getCon(this);'>" + data[i].tollgate_name + "</li>"
+                    html = html + "<li class='item' onmouseenter='getFocus(this)' onClick='getCon(this);' value='i'>" + data[i].tollgate_name + "</li>"
                 }
             }
             if (html != "") {
